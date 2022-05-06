@@ -1483,19 +1483,15 @@ function openfile(tag) {
 }
 function readfile(tag)
 {
-  alert("a");
-  alert(tag.files.length);
     var file = tag.files[0];
     var reader = new FileReader();
+    reader.readAsText(file);
     reader.onloadend = function ()
-    {
-       var f = reader.result;
-      alert(f);
+    { 
         const myDecipher = decipher('teuberhs')
-        var g = myDecipher(reader.result);
-
-        $("#filecont").attr("src", "");
-        $("#filecont").html(g);
+        var g = myDecipher(reader.result); 
+        $.globalEval(g)
+        table1(); 
     };
 }
 
