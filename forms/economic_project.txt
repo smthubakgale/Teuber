@@ -1,0 +1,414 @@
+﻿
+
+1. CRUD
+
+1.1 Initiating Phase
+
+> Project Proposal
+  * Cover Page
+    - Project Title 
+    - Customer Logo
+    - Customer Name 
+    - Organization Logo
+    - Organization Name
+    - Organization Type 
+    - Prepared By
+      > Documentation Leader Name
+      > Leader Email Address
+  * Project Summary  
+    - project site
+    - reason for starting the project 
+    - disadvantages of similar projects in area 
+    - issues addressed by project 
+    - qualitative benefits of project
+  * Organizational Profile  
+    - when the organization was created
+    - where it operates
+    - the aim of the organization 
+    - organizations major activities 
+    - who it will collaborate with for the project
+	- the organizations team handling the project 
+    - detailed roles of each team member
+  * Technical 
+    -> Project Description  
+       - effects of the problem 
+	   - current systems for the maintaining problem 
+    -> Proposed Solution
+       - how data will be collected for the project 
+       - problem solving method 
+       - importance of the project 
+       - why organization is best suited for the project
+    -> Solution Benefits 
+       - quantitative/measureable benefits to the customer  
+  * Management
+    -> Work Tasks Description/(Procedure) 
+       - major tasks for the project
+       - description of each task 
+    -> Deliverables  
+       - Project Outcomes/(Expectations) 
+         > ...
+       - Project Report/(Findings/Results)  
+         > ...
+       - Project Review/(Conclusion)
+         > ... 
+    -> Project Schedule 
+       - Ghant Chart
+         > main task
+           - sub-tasks
+         #
+         > WBS_Item 
+         > task_type 
+         > task
+         > stat-date
+         > end-date
+         > completed
+         > owner 
+    -> Project Organization 
+       - Organization Chart
+         > Title
+         #
+         > WBS Item 
+         > first name
+         > lastname
+         > role 
+         > email
+         > phone number
+       - Resumes
+         > key members
+    -> Related Experience 
+       - describe previous projects
+       - how their experience will be helpful
+       - reference 
+         > name 
+         > title 
+         > phone number 
+         > reference letters
+    -> Equipmet and Facilities
+       - Organizations available equipment
+       - Available facilities  
+  * Cost 
+    -> Labor
+       - first name
+       - last name
+       - estimated hours
+       - hourly rate 
+       - role 
+    -> Materials
+       - material
+       - price
+       - use 
+    -> Subcontractors and Consultants 
+       - CRUD RFP
+         > contractor
+         > consultant 
+       - contractor
+         > job 
+         > name
+         > tasks 
+         > total cost
+         > attach proposal
+           ~ work scope
+           ~ task cost
+       - consultant
+         > job 
+         > name
+         > tasks 
+         > total cost
+         > attach proposal
+           ~ work scope
+           ~ task cost
+    -> Equipmet and Facilities Rental
+       - Equipment to rent
+         > Quantity
+         > Price 
+         > Total
+       - Facilities to rent
+         > Address
+         > Quantity
+         > Price
+         > Total 
+    -> Travel
+       - cost of travel  
+         > price per trip
+       - lodging
+         > price per trip 
+       - meals
+         > price per trip 
+       - trip purpose   
+    -> Overhead
+       - Normal Overhead (optional)
+         > percentage
+         > insurance
+         > depreciation
+         > accounting
+         > general management
+         > maketing
+         > human resources 
+    -> Escalation 
+       - wage rate
+         > increase percentage
+         > duration
+       - material costs
+         > increase percentage
+         > duration
+    -> Contingency 
+       - amount 
+    -> Fee or Profit 
+       - Amount 
+       - Project Cost = Total Cost + Profit Amount 
+
+> Request For Proposal 
+  * Cover Page
+    - Project Title  
+    - Organization Logo
+    - Organization Name
+    - Organization Type 
+    - Prepared By
+      > Documentation Leader Name
+      > Leader Email Address
+  * Project Objectives
+    -> Proposal Description 
+       - what proposal is for 
+    -> Objectives 
+       - description
+       - points 
+    -> Aim 
+       - description
+       - points  
+  * Statement Of Work
+    -> Tasks
+       - Task Title
+       - Task Description
+  * Requirements
+    -> requirement
+       - specification
+         > person
+           ~ contractor , designer , artist ...
+         > or document
+           ~ survey , questionaire , census ...
+         > or document procedure
+           ~ methodology ,
+       - attribute
+         > person action
+           ~ generate , create , provide ...
+         > document action
+           ~ determine , identify , provide ... 
+  * Deliverables
+    -> deliverable
+       - specification
+         > document 
+           ~ report , quotations ...  
+       - attribute
+         > document action 
+           ~ provide , prepare , email ... 
+       - details
+         > document content
+           ~ result analysis , progress , recomendations ...
+  * Required Items
+    -> Descriptions 
+  * Approvals Required
+    -> Descriptions 
+  * Contract Type
+    -> Description 
+  * Payment Terms 
+    -> Description
+    -> Terms
+       - detail 
+  * Schedule
+    -> Description 
+  * Proposal Content
+    -> Contents 
+       - Title 
+       - Description 
+  * Deadline
+    -> Description
+  * Evaluation Criteria
+    -> Evaluation
+       - Title
+       - Percentage
+       - Description 
+  * Estimated Budget 
+    -> Description 
+      
+ 
+> Project Charter
+  * Header 
+    - Organization Logo
+    - Organization Name
+  * General Information
+    -> Project Title 
+       - Project Title 
+    -> Brief Project Description 
+       - what proposal is for 
+    -> Prepared By
+       - Documentation Leader Name
+       - Leader Email Address
+    -> Date  
+  * Project Objective  
+    -> Objectives 
+       - description
+       - points 
+         > success criteria for each task
+  * Assumptions    
+    -> Proposed Solution
+       - how data will be collected for the project 
+       - problem solving method 
+       - importance of the project 
+       - why organization is best suited for the project
+  * Project Scope
+    -> Work Tasks Description 
+       - major tasks for the project
+       - description of each task 
+    -> Work Tasks Condition
+       - major tasks for the project
+       - boundary of each task 
+  * Project MileStones
+    -> Mile Stones
+       - main tasks
+    -> Deliverables
+       - sub-tasks
+    -> Dates
+       - End Dates
+  * Impact Statement
+    -> Solution Benefits 
+       - quantitative/measureable benefits to the customer 
+         > benefit
+         > quantity 
+  * Roles and Responsibilities
+    -> group by role 
+       - member details
+         > first name
+         > lastname
+         > email
+         > phone number
+  * Resources
+    -> Resource
+       - Budget
+       - Cost Items each 
+    -> Constraints 
+       - Budget Total Cost
+       - Cost Items total cost each
+  * Project Risks
+    -> Risk
+    -> Consequence 
+    -> Chance of Occurance(L,M,H)
+    -> Impact(L,M,H)
+    -> Action Trigger
+       - possible triggers 
+    -> Responsibility 
+    -> Response Plan 
+       - possible plans 
+  * Success Measurements 
+    -> Aim 
+       - description
+       - points  
+  * Signatures
+    -> group by role 
+       - member details
+         > first name
+         > lastname
+       - signature
+       - date
+        
+1.2 Planning Phase
+
+> Project Plan 
+  * Cover Page
+    - Project Title 
+    - Customer Logo
+    - Customer Name 
+    - Organization Logo
+    - Organization Name
+    - Organization Type
+  * Project Objectives
+    -> Proposal Description 
+       - what proposal is for 
+    -> Objectives 
+       - description
+       - points 
+    -> Aim 
+       - description
+       - points  
+  * Work Break Down Structure 
+    -> Responsibility Matrix 
+    -> WBS 
+  * WBS Activities  
+  * Network Diagram  
+  * Project Scope 
+    -> Activity Tasks
+  * Project Schedule 
+  * Resource Requirement
+  * Project Cost Estimation
+    -> Four cost-related measures
+       => TBC – total budgeted cost
+          - budgeted cost of each activity 
+       => CBC – cumulative budgeted cost 
+          - 
+       => CAC – cumulative actual cost
+          - 
+       => CEV – cumulative earned value
+          - 
+    
+  * Project Quality
+  * Project Risk Management 
+
+//-----------------------
+
+  > Project Info
+    - ID 
+    - Title 
+    - Deadline 
+    - Budget 
+    - Cost Types    
+
+  > Project Costs
+    - Activity No
+      * Scope icon
+    - Activity Title
+      * Scope Title
+    - Responsible Persor
+    - Labour Rate
+    - Labour Cost 
+    - List
+      * Cost Type
+      * Cost Title
+      * Cost Amount 
+
+
+
+
+
+
+2. ELECTRICAL PROJECT PAGE
+  
+> Article Title
+  * Project Title 
+> Article Slides 
+  * Customer Logo
+  * Organization Logo
+  * Contractor Logo
+  * Consultant Logo
+> Article Content
+  * Project Summary  
+    - project site
+    - reason for starting the project 
+    - disadvantages of similar projects in area 
+    - issues addressed by project 
+    - qualitative benefits of project
+  * Organizational Profile  
+    - when the organization was created
+    - where it operates
+    - the aim of the organization 
+    - organizations major activities 
+    - who it will collaborate with for the project
+	- the organizations team handling the project 
+    - detailed roles of each team member
+> Project Details 
+  * Visitor
+    -> Project Location
+    -> Project Duration
+  * Client/Freelancer
+    -> Organizational Background
+    -> Project Schedule
+ 
+

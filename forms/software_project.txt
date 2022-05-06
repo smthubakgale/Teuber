@@ -1,0 +1,126 @@
+﻿
+1. CRUD
+
+1.1 Requirements Analysis 
+ 
+> Background
+  * Cover Page 
+  * Introduction 
+  * Company Background 
+  * Current Systems  
+  * Problem Statement  
+  * Proposed Solutions 
+
+> Requirements Extraction 
+  * Functional Requirements
+  * Non-Functional Requirements
+
+> Use Case Identification 
+  * Use Case Diagram 
+
+> Feasibility and Risk Study 
+  * System Feasibility
+    -> Similarities to Existing Systems
+  * Technical Feasibility
+    -> Hardware Requirements
+    -> Software Requirements 
+  * Economic Feasibility
+    -> Total System Cost
+  * Operational Feasibility 
+
+1.2 Requirement Specification 
+
+> Specification 
+  * Scenarios
+  * Activity Diagram
+  * Database Design 
+
+> Architecture Design 
+  * Class Diagram
+  * Interaction Sequence Diagram 
+
+> Project Management 
+  * Component and Deployment Diagram 
+  * Verification and Validation Plan 
+  * Ghant Chart and Resource Breakdown
+  
+> Documentation 
+  * User Guide
+  * Installation Guide
+  * Developer Guide 
+
+> Marketing Website
+  * Team Information 
+    -> Team describes itself
+    -> All team members described
+    -> Team roles specified
+  * Project Information 
+    -> Clear information about project
+    -> Understanding of project functionality
+    -> Technologies used
+    -> Target audience kept in mind
+
+
+
+
+
+......................................................................
+
+
+> System Modelling 
+  * Use Case Diagram 
+    -> Subsystem
+       => Mode
+       => Use Case
+       => Actor  
+  * Scenarios
+    -> Use Case
+       => Inputs
+       => Outputs
+       => Extensions
+          - Error Case
+          - System Response  
+> Requirements 
+  * Functional 
+    -> CRUD for user input and system response
+       => The user shall be able to Add information about ...
+          - The System shall store the users information about ...
+       => For ... information the user shall be identified by ...
+          - The System shall generate a list for ... information 
+       => The user shall be able to update their data for ... information 
+          - The System shall update a users data for ... information 
+       => The user shall be able to able to remove their data for ... information
+          - The System shall remove a users data or ... information
+    -> information
+       => The table content for the database 
+  * Non-functional 
+    -> Product Requirements
+       => Performance 
+       => Reliability
+       => Security
+       => Usability
+    -> Organizational
+       => Operational process
+       => Development process
+       => Environmental 
+    -> External 
+       => Regulatory
+       => Legislative
+       => Ethical 
+> Requirements Analysis
+  * Scenario Modelss
+    -> Activity Diagrams
+    -> Swim Lanes Diagram
+  * Class-oriented Model
+    -> Sequence Diagrams
+    -> Database Design 
+       => Component Deployment Analysis 
+
+1.2 
+
+
+  Task where (CRUD || View).length != 0 
+    :   :
+    :   ------- Page
+    :            : 
+  Task         UserType

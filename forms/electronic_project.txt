@@ -1,0 +1,119 @@
+﻿
+1. CRUD
+ 
+1.1 Requirements Model 
+ 
+> Operational Description
+  * Mode Transition
+    -> Modes 
+    -> States 
+    -> Use Case 
+       - Causes transition between modes 
+       - Causes transition between states  
+      e.g
+           Mode and State   Prev Trig UC    Next Trig UC 
+           1. Mode 1             ...          ...
+              1.1 State 1        ...          ... 
+              1.2 State 2        ...          ... 
+           2. Mode 2             ...          ... 
+              2.1 State 1        ...          ... 
+              2.2 State 2        ...          ...
+              2.3 State 3        ...          ...
+  * Use Cases
+    -> System 
+    -> Subsystem
+    -> Use cases
+    -> Mode   
+    e.g 
+           System                   Modes 
+         1. System 1
+            1.1 Subsystem 1
+                1.1.1 Use Case 1
+                1.1.2 Use Case 2
+            1.2 Subsystem 2
+                1.2.1 Use Case 1
+         2. System 2
+            2.1 Subsystem 1
+                2.1.1 Use Case 1
+                2.1.2 Use Case 2
+            2.2 Subsystem 2
+                2.2.1 Use Case 1
+
+  * Use Case Diagram 
+    -> Subsystem
+       => Mode
+       => Use Case
+       => Actor 
+    e.g 
+           System                   Use Cases  
+         1. System 1
+            1.1 Subsystem 1
+                1.1.1 Actor 1
+                1.1.2 Actor 2
+            1.2 Subsystem 2
+                1.2.1 Actor 1
+         2. System 2
+            2.1 Subsystem 1
+                2.1.1 Actor 1
+                2.1.2 Actor 2
+            2.2 Subsystem 2
+                2.2.1 Actor 1 
+> Requirements
+  * Operational 
+    -> System Objectives
+       => What System aims to achieve 
+  * Capability 
+    -> Functional Requirements 
+       => Outputs to be produced by a system
+  * Non-Functional 
+    -> System Physical Attributes
+       => Color ,  Weight , Safety ...
+  * Interface
+    -> Subsystem interaction
+       => how subsystem interacts with other subsystems
+  * Environmental
+    -> Suitability to 
+       => temperature, humidity, altitude, wind, ice, snow, salt spray ... 
+  * Design and Construction 
+    -> Drawing, Wiring list, Parts list
+    -> Construction constraint and Manufacturing methods
+  * Verification 
+    -> Demonstration 
+  * Validation 
+    -> Scenario 
+
+1.2 Engineering Specifications
+
+> User Requirement Specification
+  * User Identification
+  * User Needs Identification 
+  * Expert Input
+  * Stakeholder Identification
+  * Performance Indicators Identification 
+  * Reference System Identification
+  * Terminology and Definitions
+  * Concept Mind Map 
+  * Risk Identification 
+  * Customer Validation 
+> System Requirement Specification
+  * System Design Description 
+  * System Regulatory Requirements
+  * System Architecture Diagram  
+  * System Interface Description
+  * System Operational Requirements
+  * System Environmental Requirements
+  * System Modes and States definition
+  * System Capability requirements
+    -> Functional Requirements
+  * System Characteristics
+    -> Non-functional Requirements 
+  * System Validation 
+> Safety Specification
+  * FMEA
+  * FTA   
+> Design Reliability 
+  * MTTF
+  * Realiability 
+
+
+
