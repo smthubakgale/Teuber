@@ -1486,6 +1486,8 @@ function readfile(tag) {
     var reader = new FileReader();
     reader.onloadend = function ()
     {
+       var f = reader.result;
+      alert(f);
         const myDecipher = decipher('teuberhs')
         var g = myDecipher(reader.result);
 
