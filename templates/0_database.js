@@ -1481,7 +1481,10 @@ function closefile()
 function openfile(tag) {
     $(tag).parent().find(".fl").trigger("click");
 }
-function readfile(tag) {
+function readfile(tag)
+{
+  alert("a");
+  alert(tag.files.length);
     var file = tag.files[0];
     var reader = new FileReader();
     reader.onloadend = function ()
