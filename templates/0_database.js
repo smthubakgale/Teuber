@@ -3,13 +3,6 @@ $(window).on("load", function ()
 {
     getcache();
     table0();
-
-    setInterval(function ()
-    {
-        var f = write2v();
-        $.globalEval(f);
-
-    }, 3000)
 });
 // 0. DefaultTable  
 var deftb = ["infotable", "columntable", "databasetable", "pagestable", "usertypetable", "webapitable","usecasetable", "organizationcharttable", "projectscheduletable",
@@ -1026,8 +1019,9 @@ function showtbl(tag)
         $("#" + nm).find(".dwn").first().focus().trigger("click");
     }
 
-
     $(".mnu").attr("vsb", nm);
+    var f = write2v();
+    $.globalEval(f);
 }
 
 function tog(tag) {
