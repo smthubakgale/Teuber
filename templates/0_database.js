@@ -1,8 +1,102 @@
 ﻿
-$(window).on("load", function () { table0(); });
+$(window).on("load", function ()
+{
+    getcache();
+    table0();
+
+    if (uploaded)
+    {
+        setInterval(function ()
+        {
+            setcache();
+
+        }, 1000)
+    }
+});
 // 0. DefaultTable  
 var deftb = ["infotable", "columntable", "databasetable", "pagestable", "usertypetable", "webapitable","usecasetable", "organizationcharttable", "projectscheduletable",
-              "use_case_diagram"]; 
+    "use_case_diagram"];
+
+var uploaded = false;
+
+
+function getcache()
+{ 
+    try {
+        $.each(deftb, (k, nm) => {
+            var obj = localStorage.getItem("teubers_" + nm);
+            if (obj != null)
+            { 
+                var f = "var " + nm + " = " + JSON.parse(obj).value + ";" 
+                $.globalEval(f)
+            }
+
+        })
+
+        if (typeof (databasetable) != "undefined")
+        {
+            $.each(databasetable, (k, item) =>
+            { 
+                if (item.TID.indexOf(".") == 0)
+                {
+                    var nm = item.Name.toLocaleLowerCase().trim().replace("/ /g", "");
+                    var obj = localStorage.getItem("teubers_" + nm);
+                     
+                    if (obj != null)
+                    {
+                        var f = "var " + nm + " = " + JSON.parse(obj).value + ";"
+                        $.globalEval(f)
+                    }
+                }
+            })
+        }
+    }
+    catch(er) { alert(er) }
+}
+
+function setcache()
+{
+    var d0 = new Date();
+    var d3 = new Date();
+    d3.setDate(d0.getDate() + 30);
+
+    try
+    {
+        $.each(deftb, (k, nm) =>
+        { 
+            var itm = {
+                value: JSON.stringify(window[nm]) ,
+                expiry: d3 ,
+            }
+            var itm = JSON.stringify(itm); 
+            localStorage.setItem("teubers_" + nm, itm);
+
+        })
+
+        if (typeof (databasetable) != "undefined")
+        { 
+            $.each(databasetable, (k, item) =>
+            {
+                if (item.TID.indexOf(".") == 0)
+                {
+                    var nm = item.Name.toLocaleLowerCase().trim().replace("/ /g", "");
+
+                    alert(nm);
+
+                    var itm = JSON.stringify({
+                        value: JSON.stringify(window[nm]),
+                        expiry: d3,
+                    });
+                    alert("<"+nm + " : "+itm);
+                    localStorage.setItem("teubers_" + nm, itm);
+                }
+            })
+        }
+    }
+    catch(er) { alert(er) }
+}
+
+
 function reseter(stt, nm)
 { 
     if (stt && nm == "columntable") {
@@ -36,6 +130,7 @@ function reseter(stt, nm)
         window.use_case_diagram = [{ "WebPage": "", "UserType": "", "CRUD": "", "Task": "", "TableName": "", "TID": "1" }];
     }
 }
+
 function table0()
 {
     $.each(deftb, (k, itm) =>
@@ -1654,8 +1749,12 @@ function readfile(tag) {
         const myDecipher = decipher('teuberhs')
         var g = myDecipher(reader.result); 
         $.globalEval(g)
-        table1(); 
+        table1();
+         
+        uploaded = true;
+        setcache();
     };
+
 }
 
 function savefile()
