@@ -51,7 +51,7 @@ function getcache()
             })
         }
     }
-    catch(er) { alert(er) }
+    catch(er) { }
 }
 
 function setcache()
@@ -93,7 +93,7 @@ function setcache()
             })
         }
     }
-    catch(er) { alert(er) }
+    catch(er) { }
 }
 
 
