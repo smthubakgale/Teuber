@@ -1025,6 +1025,7 @@ function showtbl(tag)
     $(".tbln").css("display", "none");
     $("#" + nm).css("display", "block");
     $("#" + nm).focus().trigger("resize");
+    $("#" + nm).find(".dwn").first().focus().trigger("click");
 
     $(".mnu").attr("vsb", nm);
 }
