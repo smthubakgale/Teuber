@@ -9,10 +9,10 @@ $(window).on("load", function ()
         setInterval(function ()
         {
             setcache();
+            getcache();
 
-        }, 1000)
+        }, 5000)
     }
-    getcache();
 });
 // 0. DefaultTable  
 var deftb = ["infotable", "columntable", "databasetable", "pagestable", "usertypetable", "webapitable","usecasetable", "organizationcharttable", "projectscheduletable",
