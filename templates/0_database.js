@@ -1,4 +1,4 @@
-﻿
+
 $(window).on("load", function ()
 {
     getcache();
@@ -7,10 +7,7 @@ $(window).on("load", function ()
 // 0. DefaultTable  
 var deftb = ["infotable", "columntable", "databasetable", "pagestable", "usertypetable", "webapitable","usecasetable", "organizationcharttable", "projectscheduletable",
     "use_case_diagram"];
-
-var uploaded = false;
-
-
+ 
 function getcache()
 { 
     try {
@@ -24,23 +21,22 @@ function getcache()
 
         })
 
-        if (typeof (databasetable) != "undefined")
-        {
-            $.each(databasetable, (k, item) =>
-            { 
-                if (item.TID.indexOf(".") == 0)
-                {
-                    var nm = item.Name.toLocaleLowerCase().trim().replace("/ /g", "");
-                    var obj = localStorage.getItem("teubers_" + nm);
-                     
-                    if (obj != null)
-                    {
-                        var f = "var " + nm + " = " + JSON.parse(obj).value + ";"
-                        $.globalEval(f)
+        setTimeout(function ()
+        { 
+            if (typeof (databasetable) != "undefined") {
+                $.each(databasetable, (k, item) => {
+                    if (item.TID.indexOf(".") == 0) {
+                        var nm = item.Name.toLocaleLowerCase().trim().replace("/ /g", "");
+                        var obj = localStorage.getItem("teubers_" + nm);
+
+                        if (obj != null) {
+                            var f = "var " + nm + " = " + JSON.parse(obj).value + ";"
+                            $.globalEval(f)
+                        }
                     }
-                }
-            })
-        }
+                })
+            }
+        },10000)
     }
     catch(er) { }
 }
@@ -63,7 +59,7 @@ function setcache()
             localStorage.setItem("teubers_" + nm, itm);
 
         })
- 
+
         if (typeof (databasetable) != "undefined")
         { 
             $.each(databasetable, (k, item) =>
@@ -72,10 +68,13 @@ function setcache()
                 {
                     var nm = item.Name.toLocaleLowerCase().trim().replace("/ /g", "");
 
+                    alert(nm);
+
                     var itm = JSON.stringify({
                         value: JSON.stringify(window[nm]),
                         expiry: d3,
                     });
+                    alert("<"+nm + " : "+itm);
                     localStorage.setItem("teubers_" + nm, itm);
                 }
             })
@@ -83,7 +82,6 @@ function setcache()
     }
     catch(er) { }
 }
-
 
 function reseter(stt, nm)
 { 
@@ -424,7 +422,11 @@ function table7()
 
         // Editors 
         c[1][1].children().first().find(".srdt").html(JSON.stringify(organizationcharttable.select("x.Idx").sort()));
-        c[2][1].children().first().find(".srdt").html(JSON.stringify(organizationcharttable.select("x.Idx").sort())); 
+        c[1][1].children().first().find(".srdt").addClass("proj_sch1");
+
+        c[2][1].children().first().find(".srdt").html(JSON.stringify(organizationcharttable.select("x.Idx").sort()));
+        c[1][1].children().first().find(".srdt").addClass("proj_sch2");
+
         c[5][1].children().first().find(".srdt").html(JSON.stringify(["Not-Started", "In-Progress", "Completed"]));
 
         c[6][1].children().first().find(".srdt").html(JSON.stringify(["Yes", "No"]));
@@ -525,9 +527,16 @@ function table9()
 
         // Editors   
         c[0][1].children().first().find(".srdt").html(JSON.stringify(pagestable.select('x.WebPage')));
+        c[0][1].children().first().find(".srdt").addClass("use_case_c1");
+
         c[1][1].children().first().find(".srdt").html(JSON.stringify(usertypetable.select('x.UserType')));
+        c[1][1].children().first().find(".srdt").addClass("use_case_c2");
+
         c[2][1].children().first().find(".srdt").html(JSON.stringify(["Create", "Read", "Update", "Delete"]));
-        c[3][1].children().first().find(".srdt").html(JSON.stringify(infotable.select('x.Task'))); 
+
+        c[3][1].children().first().find(".srdt").html(JSON.stringify(infotable.select('x.Task')));
+        c[3][1].children().first().find(".srdt").addClass("use_case_c3");
+
         c[4][1].children().first().find(".srdt").html(JSON.stringify(["Actor", "System"]));
 
         var t1 = [];
@@ -541,10 +550,18 @@ function table9()
 
 
         c[7][1].children().first().find(".srdt").html(JSON.stringify(webapitable.select('x.WebAPI')));
+        c[7][1].children().first().find(".srdt").addClass("use_case_c4");
+
         c[8][1].children().first().find(".srdt").html(JSON.stringify(webapitable.select('x.Model')));
+        c[8][1].children().first().find(".srdt").addClass("use_case_c5");
+
         c[9][1].children().first().find(".srdt").html(JSON.stringify(webapitable.select('x.Service')));
+        c[9][1].children().first().find(".srdt").addClass("use_case_c6");
+
         c[10][1].children().first().find(".srdt").html(JSON.stringify(["Insert Row", "Select Row", "Update Row", "Delete Row"]));
+
         c[11][1].children().first().find(".srdt").html(JSON.stringify(t1));
+        c[11][1].children().first().find(".srdt").addClass("use_case_c7");
         // Helpers 
         attributes(c, tn, true);
         loadtable(c, b, a, tn);
@@ -635,10 +652,18 @@ function table10()
                 {
                     var f = (d+"").split(",");  
                     c2.children().first().find(".srdt").html(JSON.stringify(f));
+
                 }
                 else {
                     c2.children().first().find(".inpx").html(d);
-                } 
+                }
+
+                if (item.Type == "Search Set")
+                { 
+                    var cl = item.Name.toLowerCase().replace(/ /g, "");
+                    var z = id + "_" + cl;
+                    c2.children().first().find(".srdt").addClass(z);
+                }
                 //
                 c.push([c1, c2, c3]);
             } 
@@ -1012,16 +1037,95 @@ function showtbl(tag)
     $(".tbln").css("display", "none");
     $("#" + nm).css("display", "block");
     $("#" + nm).focus().trigger("resize");
-    
+
     var g = $("#" + nm).find(".mtb"); 
     if (!g.hasClass("mtbo") && !g.hasClass("mtbr"))
     { 
         $("#" + nm).find(".dwn").first().focus().trigger("click");
     }
+    // Project Schedule Table
+    if (nm == "projectscheduletable")
+    {
+        $(".proj_sch1").find(".srdt").html(JSON.stringify(organizationcharttable.select("x.Idx").sort()));
+        $(".proj_sch2").html(JSON.stringify(organizationcharttable.select("x.Idx").sort())); 
+    }
+    // Use Case Table
+    if (nm == "usecasetable")
+    {
+        $(".use_case_c1").html(JSON.stringify(pagestable.select('x.WebPage')));
+        $(".use_case_c2").html(JSON.stringify(usertypetable.select('x.UserType')));
+        $(".use_case_c3").html(JSON.stringify(infotable.select('x.Task'))); 
+        $(".use_case_c4").html(JSON.stringify(webapitable.select('x.WebAPI')));
+        $(".use_case_c5").html(JSON.stringify(webapitable.select('x.Model')));
+        $(".use_case_c6").html(JSON.stringify(webapitable.select('x.Service')));
 
-    $(".mnu").attr("vsb", nm);
+        var t1 = [];
+        $.each(databasetable, (k, itm) => {
+            if (itm.TID.indexOf(".") == -1) {
+                t1.push(itm.Name);
+            }
+        })
+
+        $(".use_case_c7").html(JSON.stringify(t1));
+    }
+    // Database Table
     var f = write2v();
     $.globalEval(f);
+
+    try {
+        var tid = ""; var cnt = true;
+        $.each(databasetable, (k, item) => {
+            if (cnt)
+            {
+                var id = (item.Name.replace(/ /g, "") + "").toLowerCase();
+
+                if (id == nm)
+                { 
+                    tid = item.TID;
+                    cnt = false;
+                }
+            }
+        })
+         
+        var prc = []; var pok = [];
+        $.each(databasetable, (k, item) =>
+        {
+            if (item.TID.indexOf(tid) == 0 && item.TID != tid && tid != "")
+            { 
+                if (item.Type == "Search Set")
+                { 
+                    if (item.TableName!= "" && item.TableColumn != "")
+                    {
+                        var q = item.TableName + ":" + item.TableColumn;
+
+                        if (pok.indexOf(q) == -1)
+                        {
+                            pok.push(q);
+                            prc.push(item);
+                        }
+                    }
+                }
+            }
+        })
+
+        $.each(prc, (k, item) => {
+
+            var tb = item.TableName.toLowerCase().trim().replace(/ /g, "");
+            var cl = item.TableColumn.replace(/ /g, "");
+
+            var arr = window[tb].select("x." + cl);
+           
+            var cl = item.Name.toLowerCase().replace(/ /g, "");
+            var z = nm + "_" + cl;
+            $("." + z).html(JSON.stringify(arr));
+        })
+        //
+    }
+    catch(er) {
+        alert(er)
+    }
+
+    $(".mnu").attr("vsb", nm);
 }
 
 function tog(tag) {
