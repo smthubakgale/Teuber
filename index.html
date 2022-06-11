@@ -16,12 +16,9 @@
     <script src="assets/js/linq.js"></script>
     <!-- Data -->
     <script src="templates/data_table.js"></script> 
-    <script src="templates/chart_temps.js"></script> 
+    <script src="templates/chart_temps.js"></script>  
      
-    <script id="filecont" src="data/temp.js"></script>
-
-
-
+	<script id="filecont" src="data/columntable.js"></script>
     <script src="templates/0_database.js"></script>
 
 </head>
@@ -120,64 +117,64 @@
             <div style="flex:1;">
                 <!--Top Menu-->
                 <div style="display: flex; border-bottom: solid 1px #717A7F">
-                    <div class="tpmn" onclick="tog(this)">
+                    <div class="tpmn" onclick="tog(this)" title="Menu">
                         <span class="fa fa-bars"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" >
+                    <div class="tpmn" title="Info" >
                         <span class=" fa fa-info-circle"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" onclick="write2()">
+                    <div class="tpmn" onclick="write2()" title="Write">
                         <span class="fa fa-pencil" style="color: #E48380"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" onclick="copy2(); popfade('Copied to Clipboard');">
+                    <div class="tpmn" title="Copy" onclick="copy2(); popfade('Copied to Clipboard');">
                         <span class="fa fa-copy" style="color: #E48380"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn"  >
+                    <div class="tpmn"  title="Open File">
                         <span class="fa fa-folder-open" onclick="openfile(this)" ></span>
                         <input class="fl" type="file" onchange="readfile(this)" hidden/>
                     </div> 
                     <div style="width:10px;"></div>
-                    <div class="tpmn" onclick="savefile()" >
+                    <div class="tpmn" onclick="savefile()" title="Download" >
                         <span class="fa fa-download" ></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" onclick="closefile()" >
+                    <div class="tpmn" onclick="closefile()" title="Exit" >
                         <span class="fa fa-sign-out-alt" style="color: #1F5680;" ></span>
                     </div>
                     <div style="flex:1;"></div>
-                    <div class="tpmn" name="columntable" onclick="showtbl(this)">
+                    <div class="tpmn" name="columntable" onclick="showtbl(this)" title="Columns Table">
                         <span class="fa fa-columns"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" name="databasetable" onclick="showtbl(this)">
+                    <div class="tpmn" name="databasetable" onclick="showtbl(this)" title="Database Table">
                         <span class="fa fa-database"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" name="pagestable" onclick="showtbl(this)">
+                    <div class="tpmn" name="pagestable" onclick="showtbl(this)" title="Web Pages Table">
                         <span class="ic i-pages"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" name="usertypetable" onclick="showtbl(this)">
+                    <div class="tpmn" name="usertypetable" onclick="showtbl(this)" title="UserType Table">
                         <span class="fa fa-users-cog"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" name="webapitable"onclick="showtbl(this)">
+                    <div class="tpmn" name="webapitable"onclick="showtbl(this)" title="Web API Table">
                         <span class="fa fa-network-wired"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" name="usecasetable" id="crnt" onclick="showtbl(this)">
+                    <div class="tpmn" name="usecasetable" id="crnt" onclick="showtbl(this)" title="Use Case Table">
                         <span class="fa fa-briefcase"></span>
                     </div>
                     <div style="width: 10px; "></div>
-                    <div class="tpmn" name="organizationcharttable" onclick="showtbl(this)">
+                    <div class="tpmn" name="organizationcharttable" onclick="showtbl(this)" title="Organization Table">
                         <span class="fa fa-people-arrows" style="color: #E48380;"></span>
                     </div>
                     <div style="width: 10px; "></div>
-                    <div class="tpmn" name="projectscheduletable"onclick="showtbl(this)">
+                    <div class="tpmn" name="projectscheduletable"onclick="showtbl(this)" title="Schedule Table">
                         <span class="fa fa-calendar" style="color: #E48380;"></span>
                     </div>
                     <div style="width:20px;"></div>
