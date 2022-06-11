@@ -1,7 +1,7 @@
 ﻿
 $(window).on("load", function () { table0(); });
 // 0. DefaultTable  
-var deftb = ["infotable", "columntable", "databasetable", "pagestable", "usertypetable", "organizationcharttable", "projectscheduletable",
+var deftb = ["infotable", "columntable", "databasetable", "pagestable", "usertypetable", "webapitable","usecasetable", "organizationcharttable", "projectscheduletable",
               "use_case_diagram"]; 
 function reseter(stt, nm)
 { 
@@ -19,6 +19,12 @@ function reseter(stt, nm)
     }
     if (stt && nm == "usertypetable") {
         window.usertypetable = [{ "UserType": "", "TID": "1" }];
+    }
+    if (stt && nm == "webapitable") {
+        window.webapitable = [{ "WebAPI": "", "Model": "", "Service": "", "TID": "1" }];
+    }
+    if (stt && nm == "usecasetable") {
+        window.usecasetable = [{ "WebPage": "", "UserType": "", "CRUD": "", "Task": "", "Actor": "", "Scenario": "", "Extension": "", "WebAPI": "", "Model": "", "Service": "", "SQLCommand": "", "Class": "", "SQLCondition": "", "TID": "1" }];
     }
     if (stt && nm == "organizationcharttable") {
         window.organizationcharttable = [{ "Role": "", "Rate": "", "FirstName": "", "LastName": "", "ProfilePic": "", "TID": "1" }];
@@ -97,6 +103,15 @@ function table2()
         ["Table Column",
             $("<div/>").html($(a.find(".row_cn").children()[0]).clone()),
             "row_mc8"],
+        ["Column Width",
+            $("<div/>").html($(a.find(".row_cn").children()[6]).clone()),
+            "row_mc2"],
+        ["DefaultValue",
+            $("<div/>").html($(a.find(".row_cn").children()[5]).clone()),
+            "row_mc1"],
+        ["Level",
+            $("<div/>").html($(a.find(".row_cn").children()[6]).clone()),
+            "row_mc2"],
     ];
     //
     try
@@ -106,7 +121,10 @@ function table2()
         c[1][1].children().first().find(".srdt").html(JSON.stringify(columntable.select("x.Name").sort()));
          
         c[3][1].children().first().find(".row_ic").find("span").first().attr("onclick","datacol2(this)");
-        c[4][1].children().first().find(".row_ic").find("span").first().attr("onclick","datacol(this)");
+        c[4][1].children().first().find(".row_ic").find("span").first().attr("onclick", "datacol(this)");
+         
+        c[5][1].children().first().find(".inpx").html("162");
+        c[6][1].children().first().find(".inpx").html("");
         // Helpers 
            attributes(c, tn, true);
            loadtable(c, b, a, tn );
@@ -196,9 +214,12 @@ function table5()
         ["Description",
             $("<div/>").html($(a.find(".row_cn").children()[2]).clone()),
             "row_mc6"],
-        ["Table Name",
+        ["Data Table",
             $("<div/>").html($(a.find(".row_cn").children()[1]).clone()),
-            "row_mc7"]
+            "row_mc7"],
+        ["Analytic Table",
+            $("<div/>").html($(a.find(".row_cn").children()[1]).clone()),
+            "row_mc7"],
     ];
     //
     try
@@ -242,27 +263,33 @@ function table6()
             $("<div/>").html($(a.find(".row_cn").children()[5]).clone()),
             "row_mc1"],
         ["Rate",
-            $("<div/>").html($(a.find(".row_cn").children()[2]).clone()),
-            "row_mc6"],
-        ["First Name",
-            $("<div/>").html($(a.find(".row_cn").children()[1]).clone()),
-            "row_mc7"],
+            $("<div/>").html($(a.find(".row_cn").children()[6]).clone()),
+            "row_mc2"],
+        ["Names",
+            $("<div/>").html($(a.find(".row_cn").children()[14]).clone()),
+            "row_mc14"],
         ["Last Name",
-            $("<div/>").html($(a.find(".row_cn").children()[1]).clone()),
-            "row_mc7"],
+            $("<div/>").html($(a.find(".row_cn").children()[5]).clone()),
+            "row_mc1"],
         ["Profile Pic",
-            $("<div/>").html($(a.find(".row_cn").children()[1]).clone()),
-            "row_mc7"]
+            $("<div/>").html($(a.find(".row_cn").children()[3]).clone()),
+            "row_mc5"],
+        ["Idx",
+            $("<div/>").html($(a.find(".row_cn").children()[15]).clone()),
+            "row_mc1"],
     ];
     //
     try {
-        // Views 
+        // Views  
         c[0][1].children().first().find(".inpx").css("width", "200px");
-        c[1][1].children().first().find(".inpx").css("width", "300px");
+        c[1][1].children().first().find(".inpx").css("width", "100px");
         c[2][1].children().first().find(".inpx").css("width", "200px");
 
-        // Editors
-         
+        c[5][1].children().first().find(".inpx").css("width", "50px");
+        c[5][1].children().first().find(".row_ic").remove();
+        // Editors 
+        c[5][1].children().first().find(".inpx").addClass("idx");
+        c[5][1].children().first().find(".inpx").html("1");
         // Helpers 
         attributes(c, tn, true);
         loadtable(c, b, a, tn);
@@ -284,33 +311,41 @@ function table7()
             $("<div/>").html($(a.find(".row_cn").children()[5]).clone()),
             "row_mc1"],
         ["Primary Person",
-            $("<div/>").html($(a.find(".row_cn").children()[2]).clone()),
-            "row_mc6"],
+            $("<div/>").html($(a.find(".row_cn").children()[0]).clone()),
+            "row_mc8"],
         ["Secondary Person",
             $("<div/>").html($(a.find(".row_cn").children()[1]).clone()),
             "row_mc7"],
         ["Start",
-            $("<div/>").html($(a.find(".row_cn").children()[1]).clone()),
-            "row_mc7"],
+            $("<div/>").html($(a.find(".row_cn").children()[7]).clone()),
+            "row_mc3"],
         ["End",
-            $("<div/>").html($(a.find(".row_cn").children()[1]).clone()),
-            "row_mc7"],
+            $("<div/>").html($(a.find(".row_cn").children()[7]).clone()),
+            "row_mc3"],
         ["Progress",
-            $("<div/>").html($(a.find(".row_cn").children()[1]).clone()),
-            "row_mc7"],
-        ["Type",
-            $("<div/>").html($(a.find(".row_cn").children()[1]).clone()),
-            "row_mc7"],
+            $("<div/>").html($(a.find(".row_cn").children()[12]).clone()),
+            "row_mc12"],
+        ["isMilestone",
+            $("<div/>").html($(a.find(".row_cn").children()[12]).clone()),
+            "row_mc12"],
     ];
     //
     try {
         // Views 
-        c[0][1].children().first().find(".inpx").css("width", "200px");
-        c[1][1].children().first().find(".inpx").css("width", "300px");
-        c[2][1].children().first().find(".inpx").css("width", "200px");
+        c[0][1].children().first().find(".inpx").css("width", "300px");
+        c[1][1].children().first().find(".inpx").css("width", "80px");
+        c[2][1].children().first().find(".inpx").css("width", "80px");
 
-        // Editors
-         
+        c[5][1].children().first().find(".inpx").css("width", "100px");
+        c[6][1].children().first().find(".inpx").css("width", "80px");
+
+        // Editors 
+        c[1][1].children().first().find(".srdt").html(JSON.stringify(organizationcharttable.select("x.Idx").sort()));
+        c[2][1].children().first().find(".srdt").html(JSON.stringify(organizationcharttable.select("x.Idx").sort())); 
+        c[5][1].children().first().find(".srdt").html(JSON.stringify(["Not-Started", "In-Progress", "Completed"]));
+
+        c[6][1].children().first().find(".srdt").html(JSON.stringify(["Yes", "No"]));
+        c[6][1].children().first().find(".inpx").html("No");
         // Helpers 
         attributes(c, tn, true);
         loadtable(c, b, a, tn);
@@ -321,13 +356,45 @@ function table7()
     }
     table8();
 }
-// 8. Use Case Table
+// 8. Web Api Table
 function table8()
 {
-
     var a = datatable.clone();
     var b = $("<div/>").html(a.find(".col_sc").children().first().clone());
-    var tn = "use_case_diagram";
+    var tn = "webapitable";
+    var c = [ 
+        ["WebAPI",
+            $("<div/>").html($(a.find(".row_cn").children()[5]).clone()),
+            "row_mc1"],
+        ["Model",
+            $("<div/>").html($(a.find(".row_cn").children()[5]).clone()),
+            "row_mc1"],
+        ["Service",
+            $("<div/>").html($(a.find(".row_cn").children()[4]).clone()),
+            "row_mc4"]
+    ];
+    //
+    try {
+        // Views   
+
+        // Editors     
+
+        // Helpers 
+        attributes(c, tn, true);
+        loadtable(c, b, a, tn);
+        // 
+    }
+    catch (er) {
+        alert(er);
+    }
+    table9();
+}
+// 9. Use Case Table
+function table9()
+{ 
+    var a = datatable.clone();
+    var b = $("<div/>").html(a.find(".col_sc").children().first().clone());
+    var tn = "usecasetable";
     var c = [
         ["WebPage",
             $("<div/>").html($(a.find(".row_cn").children()[0]).clone()),
@@ -341,29 +408,60 @@ function table8()
         ["Task",
             $("<div/>").html($(a.find(".row_cn").children()[0]).clone()),
             "row_mc8"],
-        ["TableName",
+        ["Actor",
+            $("<div/>").html($(a.find(".row_cn").children()[12]).clone()),
+            "row_mc12"],
+        ["Scenario",
+            $("<div/>").html($(a.find(".row_cn").children()[4]).clone()),
+            "row_mc4"],
+        ["Extension",
+            $("<div/>").html($(a.find(".row_cn").children()[13]).clone()),
+            "row_mc13"],
+        ["WebAPI",
             $("<div/>").html($(a.find(".row_cn").children()[0]).clone()),
-            "row_mc8"]
+            "row_mc8"],
+        ["Model",
+            $("<div/>").html($(a.find(".row_cn").children()[0]).clone()),
+            "row_mc8"],
+        ["Service",
+            $("<div/>").html($(a.find(".row_cn").children()[0]).clone()),
+            "row_mc8"],
+        ["SQLCommand",
+            $("<div/>").html($(a.find(".row_cn").children()[12]).clone()),
+            "row_mc12"],
+        ["Class",
+            $("<div/>").html($(a.find(".row_cn").children()[0]).clone()),
+            "row_mc8"],
+        ["SQLCondition",
+            $("<div/>").html($(a.find(".row_cn").children()[4]).clone()),
+            "row_mc4"],
     ];
     //
     try {
         // Views   
 
-        // Editors 
-        var fn = [];
-        $.each(databasetable, (i, itm2) =>
-        { 
-            var d1 = itm2.TID; 
-            if (d1.indexOf(".") == -1) {
-                fn.push(itm2.Name);
-            }
-        })
-         
+        // Editors   
         c[0][1].children().first().find(".srdt").html(JSON.stringify(pagestable.select('x.WebPage')));
         c[1][1].children().first().find(".srdt").html(JSON.stringify(usertypetable.select('x.UserType')));
         c[2][1].children().first().find(".srdt").html(JSON.stringify(["Create", "Read", "Update", "Delete"]));
-        c[3][1].children().first().find(".srdt").html(JSON.stringify(infotable.select('x.Task')));
-        c[4][1].children().first().find(".srdt").html(JSON.stringify(fn));
+        c[3][1].children().first().find(".srdt").html(JSON.stringify(infotable.select('x.Task'))); 
+        c[4][1].children().first().find(".srdt").html(JSON.stringify(["Actor", "System"]));
+
+        var t1 = [];
+        $.each(databasetable, (k, itm) =>
+        {
+            if (itm.TID.indexOf(".") == -1)
+            {
+                t1.push(itm.Name);
+            }
+        })
+
+
+        c[7][1].children().first().find(".srdt").html(JSON.stringify(webapitable.select('x.WebAPI')));
+        c[8][1].children().first().find(".srdt").html(JSON.stringify(webapitable.select('x.Model')));
+        c[9][1].children().first().find(".srdt").html(JSON.stringify(webapitable.select('x.Service')));
+        c[10][1].children().first().find(".srdt").html(JSON.stringify(["Insert Row", "Select Row", "Update Row", "Delete Row"]));
+        c[11][1].children().first().find(".srdt").html(JSON.stringify(t1));
         // Helpers 
         attributes(c, tn, true);
         loadtable(c, b, a, tn);
@@ -372,10 +470,10 @@ function table8()
     catch (er) {
         alert(er);
     }
-    table9();
+    table10();
 }
-// 7. Entities 
-function table9()
+// 10. Entities 
+function table10()
 {
     var c = [];
     var id = "";
@@ -440,6 +538,10 @@ function table9()
                     var r1 = JSON.stringify(tb.select("x."+tcl));
                     c2.children().first().find(".srdt").html(r1);
                 }
+                var w = (typeof (item.ColumnWidth) == "undefined") ? 162 : item.ColumnWidth; 
+                var d = (typeof (item.DefaultValue) == "undefined") ? "" : item.DefaultValue;
+                c2.children().first().find(".inpx").css("width", w + "px");
+                c2.children().first().find(".inpx").html(d);
                 //
                 c.push([c1, c2, c3]);
             } 
@@ -962,17 +1064,6 @@ function datacol(tag) {
         edtag(tag);
     }
 }
-
-function togbb(obj)
-{
-    var sd = $(obj).attr("name");
-    var a = $(obj).parent().parent().parent();
-
-    if (sd == "tbbl") { a.find(".tbbr").css("display", "none");  }
-    if (sd == "tbbr") { a.find(".tbbl").css("display", "none"); }
-    a.find("." + sd).css("display", "block");
-    a.focus().trigger("resize")
-}
 // IO
 function write0(tag)
 {
@@ -1008,7 +1099,16 @@ function write00(obj)
                     y = JSON.stringify(h);
                 }
                 else {
-                    y = '"' + processJSON(x.html().trim()) + '"';
+                    st = processJSON(x.html().trim());
+                    st = replaceAll(st, "\n", "@*");
+                    function replaceAll(str, a, b) {
+
+                        while (str.indexOf(a) != -1) {
+                            str = str.replace(a, b);
+                        }
+                        return str;
+                    }
+                    y = '"' + st + '"';
                 }
                 str += '"' + itm2 + '" : ' + y + ' , ';
             }
@@ -1021,13 +1121,14 @@ function write00(obj)
         }
 
         str += ' }';
-        try {
+        try { 
             var w = JSON.parse(String(str));
             arr.push(w);
         }
         catch (err) {
             alert(err);
             alert(str)
+            alert(str.substr(60 , 68))
         }
     })
     var e = obj.attr("tbn");
@@ -1036,7 +1137,7 @@ function write00(obj)
     return f;
 }
 function read0(tag)
-{
+{ 
     var q = $(tag).parent().parent();
     if (q.hasClass("mtbd")) {
         q.addClass("mtbr");
@@ -1068,6 +1169,14 @@ function read0(tag)
                     var x = itm1[itm2];
 
                     x = (x.indexOf("@#") != -1) ? x.replace(/@#/g, '"') : x;
+                    x = replaceAll(x, "@*", "\n");
+                    function replaceAll(str, a, b) {
+
+                        while (str.indexOf(a) != -1) {
+                            str = str.replace(a, b);
+                        }
+                        return str;
+                    }
 
                     if (x.indexOf("data:image") != -1) {
                         var g = $("<img/>");
@@ -1462,6 +1571,84 @@ function copy2()
     document.body.removeChild(aux); 
 }
 
+function build1(tag)
+{
+    var obj = $(tag);
+    var tb = [];
+    var e = "";
+
+    var q = obj.parent().parent();
+    if (q.hasClass("mtbo"))
+    {
+        var a = JSON.parse(obj.attr("tbl"));
+        var b = obj.parent().parent().parent().find(".row_cp").children();
+        var u = obj.parent().parent().parent().find(".row_sp").children();
+        var arr = [];
+
+        $.each(b, (k, itm1) => {
+            var c = $(itm1).children();
+            var str = '{ ';
+            $.each(a, (i, itm2) => {
+                if (itm2 != "TID") {
+                    var x = $(c[i]).find(".inpx");
+                    var y = "";
+
+                    if (x.find("img").length > 0) {
+                        y = '"' + processJSON(x.find("img").attr("src")) + '"';
+                    }
+                    else if (x.find(".liv").length > 0) {
+                        var h = [];
+
+                        $.each(x.find(".liv"), (n, itm3) => {
+                            h.push(processJSON($(itm3).html()));
+                        })
+                        y = JSON.stringify(h);
+                    }
+                    else {
+                        y = '"' + processJSON(x.html().trim()) + '"';
+                    }
+                    str += '"' + itm2 + '" : ' + y + ' , ';
+                }
+            });
+            if (a.indexOf("TID") != -1) {
+                str += '"TID" : "' + $(u[k]).find(".row_i").html().trim() + '" ';
+            }
+            else {
+                str = str.substring(0, str.length - 2);
+            }
+
+            str += ' }';
+            try {
+                var w = JSON.parse(String(str));
+                arr.push(w);
+            }
+            catch (err) {
+                alert(err);
+                alert(str)
+            }
+        })
+        e = obj.attr("tbn");
+        tb = arr;
+
+        $(".mnuE").html("");
+        window[e] = tb;
+        table1();
+         
+        read0(tag);
+    }
+    else
+    {
+        var e = obj.attr("tbn");
+        tb = this[e];
+
+        $(".mnuE").html("");
+        window[e] = tb;
+        table1();
+    }
+
+    $("#infotable").css("display", "none");
+}
+
 function popfade(msg) {
     $(".clbrd").find(".vl").html(msg);
     $(".clbrd").fadeIn(800);
@@ -1481,8 +1668,8 @@ function closefile()
 function openfile(tag) {
     $(tag).parent().find(".fl").trigger("click");
 }
-function readfile(tag)
-{
+function readfile(tag) {
+     
     var file = tag.files[0];
     var reader = new FileReader();
     reader.readAsText(file);
