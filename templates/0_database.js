@@ -107,8 +107,8 @@ function table2()
             $("<div/>").html($(a.find(".row_cn").children()[6]).clone()),
             "row_mc2"],
         ["DefaultValue",
-            $("<div/>").html($(a.find(".row_cn").children()[5]).clone()),
-            "row_mc1"],
+            $("<div/>").html($(a.find(".row_cn").children()[14]).clone()),
+            "row_mc14"],
         ["Level",
             $("<div/>").html($(a.find(".row_cn").children()[6]).clone()),
             "row_mc2"],
@@ -517,6 +517,11 @@ function table10()
                 start = true;
             }
             else if (a1 == 1 && a2 == 2 || a1 == 2 && a2 == 2) {
+
+                if (item.Name.trim() == "")
+                {
+                    return;
+                }
                 var vid = parseInt(columntable.where({ Name: item.Type })[0].ViewId);
                  
                 var o = $("<div/>").html('<div class="rcg2"><div><div class="inpx idx" style="width: 162px;"> 1 </div></div ></div >'); 
@@ -535,13 +540,22 @@ function table10()
                     var tcl = (item.TableColumn.replace(/ /g, "") + ""); 
                      
                     var tb = this[tbn];
-                    var r1 = JSON.stringify(tb.select("x."+tcl));
+                    var dg = (typeof (tb) == "undefined") ? [] : tb.select("x." + tcl);
+                    var r1 = JSON.stringify(dg);
                     c2.children().first().find(".srdt").html(r1);
                 }
                 var w = (typeof (item.ColumnWidth) == "undefined") ? 162 : item.ColumnWidth; 
                 var d = (typeof (item.DefaultValue) == "undefined") ? "" : item.DefaultValue;
-                c2.children().first().find(".inpx").css("width", w + "px");
-                c2.children().first().find(".inpx").html(d);
+                 
+                c2.children().first().find(".inpx").css("width", w + "px"); 
+                if (item.Type == "Select Tag")
+                {
+                    var f = (d+"").split(",");  
+                    c2.children().first().find(".srdt").html(JSON.stringify(f));
+                }
+                else {
+                    c2.children().first().find(".inpx").html(d);
+                } 
                 //
                 c.push([c1, c2, c3]);
             } 
@@ -553,7 +567,9 @@ function table10()
                 proceed(a, b, c, id, nm);
             }
         }
-        catch (er) { alert(er);}
+        catch (er) {
+            alert("KK" + er);
+        }
     }); 
     var kr = $("#infotable").clone(); 
     function proceed(a, b , c , tn , nm)

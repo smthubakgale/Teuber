@@ -1,0 +1,500 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!--    Title & Logo   -->
+    <title> UML Table - Teuber </title>
+    <link rel="shortcut icon" type="image/png" href="assets/img/logo.ico"> 
+    <!-- Icons & Fonts -->
+    <link rel="stylesheet" href="assets/fonts/f_custom.css">
+    <link rel="stylesheet" href="assets/icons/i_custom.css">
+    <link rel="stylesheet" href="assets/icons/i_font-awesome.css">
+    <!-- JavaScript -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/linq.js"></script>
+    <!-- Data -->
+    <script id="filecont" src="data/usecasetable.js"></script>
+</head>
+<body>
+
+    <main>
+        <!--0. Write -->
+        <div style="padding-top: 10px; padding-bottom: 10px; width: 85%; margin: auto; border-bottom: solid red; border-top: solid red;">
+            <div style="display:flex; text-align:center; padding:10px;">
+                <div style="flex:1;"></div>
+                <div onclick="copy0(); popfade('Copied to Clipboard'); " style="color: #E48380; font-weight:bold; padding:10px; cursor:pointer;">
+                    Copy <span class="fa fa-copy"></span>
+                </div>
+                <div style="flex:1;"></div>
+            </div>
+            <style>
+                section {
+                    border-top: solid #CCD6EB 2px;
+                    margin-top: 3px;
+                    margin-bottom: 10px;
+                }
+            </style>
+            <script>
+                function copy0() {
+                    var f = $(".prevs").text();
+
+                    var aux = document.createElement("input");
+                    aux.setAttribute("value", f);
+                    document.body.appendChild(aux);
+                    aux.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(aux);
+                }
+            </script>
+            <textarea class="prevs" style="width:90%; margin-left:5%; min-height:80px; border:solid;">
+                
+            </textarea>
+            <script>
+                $(window).on("load", function () { makejson(); });
+                $(window).resize(function () { makejson(); });
+
+                function makejson() {
+                    var a = $("#template").html();
+                    var b = a.split("\n");
+                    var str = [];
+                    $.each(b, (k, item) => {
+                        str.push("/ " + item.trim() + "\n/");
+                    });
+                    var c = JSON.stringify(str);
+
+                    var fn = 'var arruml = ' + c + '; \n'
+                        + 'var str = ""; $.each(arrcht, (k, item) => {'
+                        + '    str += item.substring(1, item.length - 1) ; '
+                        + '}); var charttemp = $("<div/>").html(str);';
+
+                    $(".prevs").text(fn);
+                }
+            </script>
+        </div>
+        <!--1. Charts-->
+        <div id="template">
+            <!--1.1 Use Case Diagram-->
+            <section>
+                <!--Title-->
+                <div style="padding: 10px; text-align: center; display: flex; color: #717A7F;">
+                    <div style="flex:3;"></div>
+                    <div>
+                        Use Case Diagram
+                    </div>
+                    <div style="flex:1;"></div>
+                    <style>
+                        .rns {
+                            font-weight: bold;
+                            color: #E48380;
+                        }
+                    </style>
+                    <div class="usec" style="cursor:pointer;" onclick="makeusecase(this , false , null)">
+                        <span class="fa fa-play"></span> <span class="rns"> Build </span>
+                    </div>
+                    <script>
+                        $(window).resize(function ()
+                        {
+                            $(".usec").focus().trigger("click");
+                        })
+                        function print_usecase(tag)
+                        {
+                            makeusecase(tag, false, null);
+
+                            setTimeout(function () {
+                                var j = $(tag).parent().parent().parent().parent().find(".usecased"); 
+                                var r = $(tag).parent().parent().parent().parent().find(".stl"); 
+                                var zoom = parseFloat((j.innerWidth() / 1000)).toFixed(2);
+
+                                j = j.clone();
+                                j.css("width", "125%"); 
+                                 
+                                var bod = $("<div/>").html(j).html();
+                                var post = '<div style="padding-right: 10px; color: #717A7F; font-size:13px; font-weight: 700; margin-top:15px; text-align:center;">'
+                                    + 'generated by <span style="color: #E48380;"> Teuber </span>'
+                                    + '</div>';
+
+                                var o = window.open("", "_blank", "width=900,height=470,left=400,top=100,menubar=yes,toolbar=no,location=no,scrollbars=yes");
+                                o.document.open();
+                                o.document.write("<!doctype html><html><head><title>Teuber <\/title> <\/head><body style='width: 785px; zoom:" + zoom + "' onload=\"print();\">" + r.clone().html() +  bod + post + "<\/body><\/html>");
+                                o.document.close();
+
+                            }, 1500)
+                        }
+                    </script>
+                    <div style="width:20px;"></div>
+                    <div style="cursor:pointer;" onclick="print_usecase(this)">
+                        <span class="fa fa-print"></span> <span class="rns"> Print </span>
+                    </div>
+                    <div style="flex:1;"></div>
+                </div>
+                <!--Preview-->
+                <div class="stl">
+                    <style> 
+                        @media not screen and (max-width: 1000px) {
+                            .usecased {
+                                display: grid;
+                                grid-template-columns: 50% 50%;
+                            }
+                        }
+                    </style>
+                </div>
+                <style>
+                    .usecased {
+                        width: 800px;
+                        max-height: 80vh;
+                        overflow: scroll;
+                        margin: auto;
+                        margin-top: 10px;
+                        min-height: 80px;
+                        border: solid silver 1px;
+                    }
+
+                        .usecased::-webkit-scrollbar {
+                        }
+
+                        .usecased::-webkit-scrollbar-track {
+                            box-shadow: inset 0 0 5px grey;
+                        }
+
+                        .usecased::-webkit-scrollbar-thumb {
+                            background: #717A7F;
+                            border-radius: 10px;
+                        }
+
+                        .usecased::-webkit-scrollbar {
+                            width: 10px;
+                        }
+
+                </style>
+                <div class="usecased" style="width: 80%; margin: auto; margin-top: 10px; min-height: 80px; border: solid silver 1px;">
+
+                </div>
+                <!--Data-->
+                <div style="display:none;">
+                    <script>
+                        // Helpers
+                        function haschilds(tag, arr) {
+                            var ret = false;
+                            $.each(arr, (index, item) => {
+                                if (item.TID.indexOf(tag) == 0) {
+                                    ret = true
+                                }
+                            });
+                            return ret;
+                        }
+                        function ispar(id, obj)
+                        {
+                            var a = obj.TID + "";
+                            if ( a.indexOf(".") == -1) { return false; }
+
+                            var b = id + "";
+
+                            a = a.substring(0, a.lastIndexOf("."));
+                             
+                            return a == b;
+                        }
+                        function getchilds(itm1, data)
+                        {
+                            var a = [];
+                            $.each(data, (k, itm2) =>
+                            {
+                                if (ispar(itm1.TID, itm2))
+                                {
+                                    a.push(itm2)
+                                }
+                            })
+                            return a;
+                        } 
+                        function gtlv(str) {
+                            var b = str.length;
+                            var a = str.replace(/[^.]/g, "").length;
+
+                            return b - a;
+                        }
+                        function nxlv(data, itm)
+                        {
+                            var sn = [];
+
+                            $.each(data, (k, item) =>
+                            {
+                                if (item.TID.indexOf(itm.TID) == 0)
+                                {
+                                    var s = ("" + item.TID).replace(itm.TID + ".", "");
+                                    if (s.indexOf(".") == -1)
+                                    {
+                                        sn.push(item); 
+                                    }
+                                }
+                            })
+                             
+                            return sn;
+                        }
+                        // Main
+                        function makeusecase(tag)
+                        {
+                            var data = JSON.parse($(tag).parent().parent().parent().parent().find(".uscd").val());
+                            var temp = $("<div/>").html($(tag).parent().parent().parent().parent().find(".usct").html().trim());
+                            var parn = $(tag).parent().parent().parent().parent().find(".usecased");
+
+                            var str = "";
+                            var usr = [];
+                            //:::::::::: Components
+                            var l1 = []; $.each(data, (k, item) => { if (gtlv(item.TID) == 1) { l1.push(item) } });
+                            $.each(l1, (k1, itm1) =>
+                            { 
+                                var a = temp.clone(); 
+                                var us = [];  
+                                //>> Actor
+                                var l2 = getchilds(itm1, data);
+
+                                $.each(l2, (k2, itm2) =>
+                                { 
+                                    //>> Action
+                                    var l3 = getchilds(itm2, data);
+                                    $.each(l3, (k3, itm3) =>
+                                    {
+                                        var s = itm3.CRUD + " " + itm3.Task;
+                                        if (us.indexOf(s) == -1) {
+                                            us.push(s);
+                                        } 
+                                    })
+                                })
+                                 
+                                // 1. Edit Title
+                                var tl = itm1.WebPage.replace(".html", "");
+                                tl = tl.charAt(0).toUpperCase() + tl.slice(1);
+                                a.find(".utle").html(tl);
+                                // 2. Edit Use Case
+                                if (us.length == 0) {
+                                    a.find(".uact").html("");
+                                }
+                                else {
+                                    var f = a.find(".uact").children().first().clone();
+                                    var st = "";
+                                     
+                                    $.each(us, (k, itm) =>
+                                    { 
+                                        var g = f.clone();
+                                        g.find(".a").html(itm);
+
+                                        $.each(l2, (k2, itm2) => { 
+                                            var s = nxlv(data, itm2); 
+                                            $.each(s, (k4, itm4) =>
+                                            {
+                                                var sn = itm4.CRUD + " " + itm4.Task;
+                                                 
+                                                if (itm == sn)
+                                                {
+                                                    g.addClass("USC_" + k2 + "_" + k1 + "_" + k4);
+                                                }
+                                                 
+                                            })
+                                        })
+                                         
+                                        st += $("<div/>").html(g).html(); 
+                                    })
+                                    a.find(".uact").html(st);
+                                }
+                                // 3. Edit Actor   
+                                if (l2.length == 0) { a.find(".ucur").html(""); a.find(".ucul").html(""); }
+                                if (l2.length == 1) { a.find(".ucur").html(""); }
+
+                                var lr = parseInt(l2.length / 2);
+                                var lf = l2.length - lr;
+
+                                var la = a.find(".ucul").children().first().clone();
+                                var ra = a.find(".ucur").children().first().clone();
+
+                                var sl = "";
+                                var sr = "";
+
+                                for (var k = 0; k < lf; k++)
+                                {
+                                    // 
+                                    var f = la.clone(); 
+                                    f.find(".aname").html(l2[k].UserType);
+                                    //
+                                    var s = nxlv(data, l2[k]);
+
+                                    var w = f.find(".actlns").children().first().clone();
+                                    var j = "";
+
+                                    $.each(s, (k4, itm4) =>
+                                    {
+                                        var q = w.clone();
+                                        q.addClass("ACT_" + k + "_" + k1 + "_" + k4);
+                                        j += $("<div/>").html(q).html();
+                                    })
+                                    f.find(".actlns").html(j);
+                                    //
+                                    sl += $("<div/>").html(f).html();
+                                }
+
+                                for (var k = lf; k < l2.length; k++)
+                                { 
+                                    var f = ra.clone(); 
+                                    f.find(".aname").html(l2[k].UserType);
+                                    //
+                                    var s = nxlv(data, l2[k]);
+
+                                    var w = f.find(".actlns").children().first().clone();
+                                    var j = "";
+
+                                    $.each(s, (k4, itm4) => {
+                                        var q = w.clone();
+                                        q.addClass("ACT_" + k + "_" + k1 + "_" + k4);
+                                        j += $("<div/>").html(q).html();
+                                    })
+                                    f.find(".actlns").html(j);
+                                    //
+                                    sr += $("<div/>").html(f).html();
+                                }
+
+                                a.find(".ucul").html(sl);
+                                a.find(".ucur").html(sr);
+                                //
+                                str += a.html();
+                                usr.push(us);
+                            }) 
+                            parn.html(str); 
+                            //:::::::::: Lines
+                            $.each(l1, (k1, itm1) =>
+                            {
+                                var l2 = getchilds(itm1, data);
+                                var us = usr[k1];
+                                 
+                                $.each(us, (k, itm) =>
+                                { 
+                                    $.each(l2, (k2, itm2) =>
+                                    {
+                                        var s = nxlv(data, itm2);
+                                        $.each(s, (k4, itm4) =>
+                                        {
+                                            var sn = itm4.CRUD + " " + itm4.Task;
+
+                                            if (itm == sn)
+                                            {
+                                                var p2 = ".USC_" + k2 + "_" + k1 + "_" + k4;
+                                                var p1 = ".ACT_" + k2 + "_" + k1 + "_" + k4;
+                                                 
+                                                var a = parn.find(p1);
+                                                var b = parn.find(p2).find(".a");
+                                                  
+                                                var lr = parseInt(l2.length / 2);
+                                                var lf = l2.length - lr;
+
+                                                if (0 <= k2 && k2 < lf) {
+
+                                                    var x2 = b.offset().left; var x1 = a.offset().left; var x = x2 - x1;
+                                                    var y2 = b.offset().top + 10; var y1 = a.offset().top; var y = y2 - y1;
+
+                                                    var r = parseInt(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+                                                    var an = parseInt(Math.atan2(y, x) * 180 / Math.PI);
+
+                                                    an += 180;
+                                                    parn.find(p1).css("width" , r + "px") 
+                                                    parn.find(p1).css("transform", "rotate(" + an + "deg) translateX(-100%)");
+                                                }
+                                                if (lf <= k2 && k2 < l2.length) {
+
+                                                    var x1 = b.offset().left + b.outerWidth(); var x2 = a.offset().left; var x = x2 - x1;
+                                                    var y2 = b.offset().top - 10 ; var y1 = a.offset().top; var y = y2 - y1;
+
+                                                    var r = parseInt(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+                                                    var an = parseInt(Math.atan2(y, x) * 180 / Math.PI);
+
+                                                    an = an + 180; r += 20;
+                                                    parn.find(p1).css("width", r + "px");
+                                                    parn.find(p1).css("transform", "rotate(" + an + "deg) translateX(-100%)");
+                                                }
+                                            }
+
+                                        })
+                                    })
+                                     
+                                })
+
+                                 
+                            })
+                            //------------------------- 
+                        }
+                    </script>
+                    <textarea class="uscd" style="width:80%; margin-left:10%; margin-top:15px; height:100px; padding:10px; border:solid;">
+
+                    </textarea>
+
+                    <div class="usct" style="width: 70%; margin: auto; min-height: 80px; padding: 10px; padding-top: 60px; margin-top: 15px; margin-bottom: 20px; border: solid #CCD6EB 1.5px;">
+                        <div style="margin-top: 20px; margin-bottom: 20px; display: flex; flex-direction: row;">
+                            <!--Users Left-->
+                            <div style="flex:1;"></div>
+                            <div class="ucul" style="padding:10px; ">
+                                <!-- L Actor 1 -->
+                                <div style="margin-top:30px; text-align:center;  position:relative;">
+                                    <div style="background:url(assets/icons/svg/Actor.svg) no-repeat; background-size:100% 100%; width:60px; height:60px; border:none; outline:none; margin:auto;"></div>
+                                    <span class="aname">
+                                        Actor
+                                    </span>
+                                    <div style="position:absolute; left:100%; top:50%; ">
+                                        <div class="actlns" style="position:relative;margin-left:100%;">
+                                            <div style="transform-origin: top left; position: absolute; border-bottom: solid #717A7F 2px; width: 30px; transform: rotate(135deg) translateX(-100%); "></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Arrows Left-->
+                            <div style="width:50px;"> </div>
+                            <!--Use Cases-->
+                            <div style="padding-left: 20px; padding-right: 20px; border: solid #717A7F 1.5px;">
+                                <!--Title-->
+                                <div class="utle" style="padding: 5px; text-align: center; color: #141319; font-weight: 700;">
+                                    Title
+                                </div>
+                                <div class="uact">
+                                    <div style="margin-top:15px; margin-bottom:15px; display:flex;">
+                                        <div style="flex:1;"></div>
+                                        <div class="a" style="padding: 10%; border: solid #717A7F 1.5px; font-size:14px; border-radius: 50%; text-align: center; vertical-align: middle; max-width: 200px; ">
+                                            Use Case
+                                        </div>
+                                        <div style="flex:1;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Arrows Right-->
+                            <div style="width:50px;"> </div>
+                            <!--Users Right-->
+                            <div class="ucur" style="padding:10px; ">
+                                <!-- R Actor 1 -->
+                                <div style="margin-top:30px; text-align:center; position:relative;">
+                                    <div style="background:url(assets/icons/svg/Actor.svg) no-repeat; background-size:100% 100%; width:60px; height:60px; border:none; outline:none; margin:auto;"></div>
+                                    <span class="aname"> 
+                                        Actor
+                                    </span>
+                                    <div style="position: absolute; left: 0%; top: 50%; transform: scaleX(-1); ">
+                                        <div style="position:relative;margin-left:100%;">
+                                            <div class="actlns" style="position:relative;margin-left:100%;">
+                                                <div style="transform-origin: top left; position: absolute; border-bottom: solid #717A7F 2px; width: 30px; transform: rotate(135deg) translateX(-100%); "></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div style="flex:1;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!--2. Test Data-->
+        <div>
+            <script>
+                $(window).on("load", function () {
+                    $(".uscd").val(JSON.stringify(usecasetable));
+                })
+            </script>
+        </div>
+    </main>
+
+    <br /><br /><br />
+</body>
+</html>
