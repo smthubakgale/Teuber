@@ -16,7 +16,8 @@
     <script src="assets/js/linq.js"></script>
     <!-- Data -->
     <script src="templates/data_table.js"></script> 
-    <script id="filecont" src=""></script>
+    <script src="templates/chart_temps.js"></script> 
+    <script id="filecont" src="data/filedata.js"></script>
     <script src="templates/0_database.js"></script>
 
 </head>
@@ -47,7 +48,7 @@
                         <span class="fa fa-caret-down" style="color: #E48380; "></span>
                     </div>
                     <div class="vsuals" style="width: 90%; margin-left: 10%; font-size: 13px; border-left: solid #E48380 1.5px; display: none; ">
-                        <div class="inft infc" name="use_case_diagram" onclick="showtbl(this)">
+                        <div class="inft infc" >
                             Use Case Diagram
                         </div>
                         <div class="inft infc">
@@ -119,6 +120,10 @@
                         <span class="fa fa-bars"></span>
                     </div>
                     <div style="width:10px;"></div>
+                    <div class="tpmn" >
+                        <span class=" fa fa-info-circle"></span>
+                    </div>
+                    <div style="width:10px;"></div>
                     <div class="tpmn" onclick="write2()">
                         <span class="fa fa-pencil" style="color: #E48380"></span>
                     </div>
@@ -144,7 +149,7 @@
                         <span class="fa fa-columns"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" name="databasetable" id="crnt" onclick="showtbl(this)">
+                    <div class="tpmn" name="databasetable" onclick="showtbl(this)">
                         <span class="fa fa-database"></span>
                     </div>
                     <div style="width:10px;"></div>
@@ -155,12 +160,20 @@
                     <div class="tpmn" name="usertypetable" onclick="showtbl(this)">
                         <span class="fa fa-users-cog"></span>
                     </div>
+                    <div style="width:10px;"></div>
+                    <div class="tpmn" name="webapitable"onclick="showtbl(this)">
+                        <span class="fa fa-network-wired"></span>
+                    </div>
+                    <div style="width:10px;"></div>
+                    <div class="tpmn" name="usecasetable" id="crnt" onclick="showtbl(this)">
+                        <span class="fa fa-briefcase"></span>
+                    </div>
                     <div style="width: 10px; "></div>
                     <div class="tpmn" name="organizationcharttable" onclick="showtbl(this)">
                         <span class="fa fa-people-arrows" style="color: #E48380;"></span>
                     </div>
                     <div style="width: 10px; "></div>
-                    <div class="tpmn" name="projectscheduletable" onclick="showtbl(this)">
+                    <div class="tpmn" name="projectscheduletable"onclick="showtbl(this)">
                         <span class="fa fa-calendar" style="color: #E48380;"></span>
                     </div>
                     <div style="width:20px;"></div>
@@ -246,6 +259,9 @@
                                         </div>
                                         <div class="dwn" onclick="copy1(); popfade('Copied Data to Clipboard');" style="color: #E48380;">
                                             Copy <span class="fa fa-copy"></span>
+                                        </div>
+                                        <div class="dwn" onclick="build1(this);" style="color: #E48380;">
+                                            Build <span class="fa fa-play"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -409,6 +425,94 @@
                                     <div class="tb_area"></div>
                                 </div>
                             </div>
+                            <!-- 6. WebApiTable -->
+                            <div id="webapitable" class="tbli">
+                                <!-- A. Title-->
+                                <div class="nm">
+                                    Web API Table
+                                </div>
+                                <!-- B. Menu Tabs-->
+                                <div class="mtb">
+                                    <div style="flex:1;">
+                                        <div class="dwn" onclick="read0(this)">
+                                            Read <span class="fa fa-book"></span>
+                                        </div>
+                                        <div class="dwn" onclick="write0(this)">
+                                            Write <span class="fa fa-pencil"></span>
+                                        </div>
+                                        <div class="dwn dwn1" mode="on" onclick="ed_mode(this)">
+                                            Edit <span class="fa fa-toggle-on"></span>
+                                        </div>
+                                        <div class="dwn" onclick="ed_print(this)">
+                                            Print <span class="fa fa-print"></span>
+                                        </div>
+                                        <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
+                                            Copy <span class="fa fa-copy"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- C. Table Data-->
+                                <div>
+                                    <div class="jcb">
+
+                                        <div class="jtt">
+                                            Data
+                                        </div>
+                                        <br />
+                                        <div style="width:90%; margin:auto;">
+                                            <textarea class="jcd" readonly></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- D. Table-->
+                                <div>
+                                    <div class="tb_area"></div>
+                                </div>
+                            </div>
+                            <!-- 7. Use Case Table -->
+                            <div id="usecasetable" class="tbli">
+                                <!-- A. Title-->
+                                <div class="nm">
+                                    Use Case Table
+                                </div>
+                                <!-- B. Menu Tabs-->
+                                <div class="mtb">
+                                    <div style="flex:1;">
+                                        <div class="dwn" onclick="read0(this)">
+                                            Read <span class="fa fa-book"></span>
+                                        </div>
+                                        <div class="dwn" onclick="write0(this)">
+                                            Write <span class="fa fa-pencil"></span>
+                                        </div>
+                                        <div class="dwn dwn1" mode="on" onclick="ed_mode(this)">
+                                            Edit <span class="fa fa-toggle-on"></span>
+                                        </div>
+                                        <div class="dwn" onclick="ed_print(this)">
+                                            Print <span class="fa fa-print"></span>
+                                        </div>
+                                        <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
+                                            Copy <span class="fa fa-copy"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- C. Table Data-->
+                                <div>
+                                    <div class="jcb">
+
+                                        <div class="jtt">
+                                            Data
+                                        </div>
+                                        <br />
+                                        <div style="width:90%; margin:auto;">
+                                            <textarea class="jcd" readonly></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- D. Table-->
+                                <div>
+                                    <div class="tb_area"></div>
+                                </div>
+                            </div>
                             <!-- 5. OrganizationChartTable-->
                             <div id="organizationcharttable" class="tbli">
                                 <!-- A. Title-->
@@ -498,74 +602,9 @@
                                 </div>
                             </div>
                         </div>
-                        <!--:: Left Menu Pages -->
+                        <!--:: Left Menu Previews -->
                         <div style="width:100%;">
-                            <!-- 1. ColumnTable-->
-                            <div id="use_case_diagram" class="tbli">
-                                <!-- A. Title-->
-                                <div class="nm" style="display:flex;">
-                                    <div style="flex:1;"></div>
-                                    <div>  Use Case Diagram </div>
-                                    <div class="tbscn">
-                                        <div class="tbs tbsl" name="tbbl" onclick="togbb(this)">
-                                            <span class="fa fa-table"></span>
-                                        </div>
-                                        <div class="tbs tbsr" name="tbbr" onclick="togbb(this)">
-                                            <span class="fa fa-eye"></span>
-                                        </div>
-                                    </div>
-                                    <div style="flex:1;"></div>
-                                </div>
-                                <div>
-                                    <div class="tbbl">
-                                        <!-- 1. Menu Tabs-->
-                                        <div class="mtb">
-                                            <div style="flex:1;">
-                                                <div class="dwn" onclick="read0(this)">
-                                                    Read <span class="fa fa-book"></span>
-                                                </div>
-                                                <div class="dwn" onclick="write0(this)">
-                                                    Write <span class="fa fa-pencil"></span>
-                                                </div>
-                                                <div class="dwn dnw1" mode="on" onclick="ed_mode(this)">
-                                                    Edit <span class="fa fa-toggle-on"></span>
-                                                </div>
-                                                <div class="dwn" onclick="ed_print(this)">
-                                                    Print <span class="fa fa-print"></span>
-                                                </div>
-                                                <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
-                                                    Copy <span class="fa fa-copy"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 2. Table Data-->
-                                        <div>
-                                            <div class="jcb">
-
-                                                <div class="jtt">
-                                                    Data
-                                                </div>
-                                                <br />
-                                                <div style="width:90%; margin:auto;">
-                                                    <textarea class="jcd" readonly></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 3. Table-->
-                                        <div>
-                                            <div class="tb_area"></div>
-                                        </div>
-                                    </div>
-                                    <div class="tbbr">
-                                        <div style="display:flex;">
-                                            <div style="flex:1;"></div>
-                                            <div style="width:200px; margin-right: 10px; display:flex; padding:2px; border-top: solid #34444C 1.5px; border-bottom: solid #34444C 1.5px;">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                             
                         </div>
                         <!--:: Database Pages -->
                         <div class="mnuE" style="width:100%;">
@@ -615,11 +654,11 @@
             </div>
         </div>
     </main>
-
+     
     <script>
         $(document).ready(function () {
-           // $("#crnt").trigger("click");
-           // $(".tbsr").trigger("click");
+           $("#crnt").trigger("click");
+           $(".tbsr").trigger("click");
         });
     </script>
 </body>

@@ -1,11 +1,16 @@
 ﻿ 
-@font-face { font-family: 'teuber'; src: url('custom/custom.ttf') format('truetype'); }
+@font-face { font-family: 'teuber'; src: url('custom/custom.ttf') format('truetype'); } 
 .i-text-color:before { content: "\e900"; }  
 .i-cross:before {  content: "\e901"; } 
 .i-cardinal:before {  content: "\e902"; } 
 .i-undo2:before { content: "\e903"; } 
 .i-redo2:before { content: "\e904"; }   
-.i-pages:before { content: "\e905"; }   
+.i-pages:before { content: "\e905"; }
+.i-zoom-out:before { content: "\e906"; }
+.i-zoom-in:before { content: "\e907"; }
+.i-three-col:before { content: "\e908"; } 
+.i-two-col:before { content: "\e909"; }  
+.i-one-col:before { content: "\e90a"; }  
    
 @font-face { font-family: 'teuber'; src: url('custom/uml.ttf') format('truetype'); }  
 .u-node:before {  content: "\f900"; } 

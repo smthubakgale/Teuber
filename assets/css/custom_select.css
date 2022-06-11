@@ -1,0 +1,31 @@
+﻿.select_tag_ref {
+    position: relative;
+}
+
+.selected_ref {
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    min-height: inherit;
+}
+
+.selected_text_ref {
+    flex: 1;
+    text-align: center;
+}
+
+.selected_icon_cover_ref {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.options_ref {
+    width: 100%;
+    display: none;
+    position: absolute;
+    z-index: 99;
+}
+
+.option_ref {
+    text-align: center;
+}
