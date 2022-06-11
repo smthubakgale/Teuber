@@ -1175,48 +1175,59 @@ function read0(tag)
     $.each(tb, (k, itm1) => {
         var tid = "";
         var k2 = b.clone();
+        var er = false;
         $.each(a, (i, itm2) => {
+             
             if (itm2 == "TID") {
-                tid = itm1[itm2];
+                try {
+                    tid = itm1[itm2];
+                }
+                catch {
+                    tid = "1";
+                    er = true;
+                }
             }
             else {
-                try {
-                    var y = "";
-                    var x = itm1[itm2];
+                if (!er) {
 
-                    x = (x.indexOf("@#") != -1) ? x.replace(/@#/g, '"') : x;
-                    x = replaceAll(x, "@*", "\n");
-                    function replaceAll(str, a, b) {
+                    try {
+                        var y = "";
+                        var x = itm1[itm2];
 
-                        while (str.indexOf(a) != -1) {
-                            str = str.replace(a, b);
+                        x = (x.indexOf("@#") != -1) ? x.replace(/@#/g, '"') : x;
+                        x = replaceAll(x, "@*", "\n");
+                        function replaceAll(str, a, b) {
+
+                            while (str.indexOf(a) != -1) {
+                                str = str.replace(a, b);
+                            }
+                            return str;
                         }
-                        return str;
-                    }
 
-                    if (x.indexOf("data:image") != -1) {
-                        var g = $("<img/>");
-                        g.addClass("ed_im5");
-                        g.attr("src", x);
-                        y = $("<div/>").html(g).html();
+                        if (x.indexOf("data:image") != -1) {
+                            var g = $("<img/>");
+                            g.addClass("ed_im5");
+                            g.attr("src", x);
+                            y = $("<div/>").html(g).html();
+                        }
+                        else if (typeof (x) == "object") {
+                            var cn = $("<div/>");
+                            cn.html("");
+                            $.each(x, (k, itm3) => {
+                                var ob = $("<div/>");
+                                ob.addClass("liv");
+                                ob.html(itm3);
+                                cn.append(ob);
+                            });
+                            y = cn.html();
+                        }
+                        else {
+                            y = x;
+                        }
+                        $(k2.children()[i]).find(".inpx").html(y);
                     }
-                    else if (typeof (x) == "object") {
-                        var cn = $("<div/>");
-                        cn.html("");
-                        $.each(x, (k, itm3) => {
-                            var ob = $("<div/>");
-                            ob.addClass("liv");
-                            ob.html(itm3);
-                            cn.append(ob);
-                        });
-                        y = cn.html();
-                    }
-                    else {
-                        y = x;
-                    }
-                    $(k2.children()[i]).find(".inpx").html(y);
+                    catch (e) { }
                 }
-                catch (e) { }
             }
         });
         // TID
@@ -1299,7 +1310,7 @@ function write1(tag)
 
 }
 function write1v()
-{
+{ 
     var a = $(".mtbd");
     var unread = [];
     var read = [];
@@ -1352,13 +1363,14 @@ function write1v()
 
     $.each(databasetable, (k, item) => {
         try {
+            var nm = item.Name.toLowerCase().trim().replace(/ /g, "");
 
             var a2 = (item.TID.indexOf(".") == -1) ? 1 : 2;
 
             if (a1 == 1 && a2 == 1) {
                 if (start) {
-                    if (undefined.indexOf(id) != -1) {
-                        str += proceed(cc);
+                    if (undefined.indexOf(id) != -1) { 
+                        str += proceed(cc , nm);
                         cc = [];
                     }
                 }
@@ -1368,7 +1380,7 @@ function write1v()
             if (a1 == 2 && a2 == 1) {
                 if (start) {
                     if (undefined.indexOf(id) != -1) {
-                        str += proceed(cc);
+                        str += proceed(cc , nm);
                         cc = [];
                     }
                 }
@@ -1386,7 +1398,7 @@ function write1v()
 
             if (k + 1 == databasetable.length) {
                 if (undefined.indexOf(id) != -1) {
-                    str += proceed(cc);
+                    str += proceed(cc , nm);
                     cc = [];
                 }
             }
@@ -1397,26 +1409,45 @@ function write1v()
     });
 
 
-    function proceed(c) {
-        var st = "[ ";
-        $.each(c, (w, itm1) => {
-            if (w == 0) {
-                st += '{ ';
-            }
-            st += '"' + itm1 + '" : ""';
-             
-            if (w != c.length)
-            {
-                st += ', ';
-            } 
-            if (w + 1 == c.length) {
-                st += ' "TID":"1" } ';
-            }
+    function proceed(c, n) {
+         
+        var a = $("#" + n);
+        var b = (a.find(".mtbr").length == 0) && (typeof (this[n]) == "undefined");
 
-        });
-        st += "]";
+        var f = "";
 
-        var f = 'var ' + id + ' = ' + st + ' ; ';
+        if (b) {
+            var st = "[ ";
+            $.each(c, (w, itm1) => {
+                if (w == 0) {
+                    st += '{ ';
+                }
+
+                if (itm1 == "Idx") {
+
+                    st += '"' + itm1 + '" : "1"';
+                }
+                else {
+
+                    st += '"' + itm1 + '" : "" ';
+                }
+
+                if (w != c.length) {
+                    st += ', ';
+                }
+                if (w + 1 == c.length) {
+                    st += ' "TID":"1" } ';
+                }
+
+            });
+            st += "]";
+
+            f = 'var ' + id + ' = ' + st + ' ; ';
+        }
+        else {
+
+            f = write00($("#" + n).find(".mtb").find(".dwn").first());
+        }
         return f;
     }
 
@@ -1487,9 +1518,10 @@ function write2v()
             }
         }
     });
+
      
     $.each(read, (z, itm) => {
-        var f = write00($("#" + itm).find(".mtb").find(".dwn").first());
+        var f = write00($("#" + itm).find(".mtb").find(".dwn").first()); 
         str += f;
     })
 
@@ -1497,82 +1529,10 @@ function write2v()
         var f = 'var ' + itm + ' = ' + JSON.stringify(this[itm]) + ' ; ';
         str += f;
     });
-
-    var cc = [];
-    var id = "";
-    var a1 = 2;
-    var start = false;
-
-    $.each(databasetable, (k, item) => {
-        try {
-
-            var a2 = (item.TID.indexOf(".") == -1) ? 1 : 2;
-
-            if (a1 == 1 && a2 == 1) {
-                if (start) {
-                    if (undefined.indexOf(id) != -1) {
-                        str += proceed(cc);
-                        cc = [];
-                    }
-                }
-                start = true;
-            }
-
-            if (a1 == 2 && a2 == 1) {
-                if (start) {
-                    if (undefined.indexOf(id) != -1) {
-                        str += proceed(cc);
-                        cc = [];
-                    }
-                }
-                start = true;
-            }
-            if (a1 == 2 && a2 == 1) {
-                id = (item.Name.replace(/ /g, "") + "").toLowerCase();
-                start = true;
-            }
-            else if (a1 == 1 && a2 == 2 || a1 == 2 && a2 == 2) {
-                if (undefined.indexOf(id) != -1) { cc.push(item.Name); }
-            }
-
-            a1 = a2;
-
-            if (k + 1 == databasetable.length) {
-                if (undefined.indexOf(id) != -1) {
-                    str += proceed(cc);
-                    cc = [];
-                }
-            }
-        }
-        catch (er) {
-            alert(er);
-        }
-    });
-
-
-    function proceed(c) {
-        var st = "[ ";
-        $.each(c, (w, itm1) => {
-            if (w == 0) {
-                st += '{ ';
-            }
-            st += '"' + itm1 + '" : ""';
-             
-            if (w != c.length)
-            {
-                st += ', ';
-            } 
-            if (w + 1 == c.length) {
-                st += ' "TID":"1" } ';
-            }
-
-        });
-        st += "]";
-
-        var f = 'var ' + id + ' = ' + st + ' ; ';
-        return f;
-    }
      
+    var f = write1v();
+    str += f;
+
     return str;
 }
 function copy2()
