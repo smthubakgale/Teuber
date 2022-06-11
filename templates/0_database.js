@@ -4,15 +4,12 @@ $(window).on("load", function ()
     getcache();
     table0();
 
-    if (uploaded)
+    setInterval(function ()
     {
-        setInterval(function ()
-        {
-            setcache();
-            getcache();
+        var f = write2v();
+        $.globalEval(f);
 
-        }, 5000)
-    }
+    }, 3000)
 });
 // 0. DefaultTable  
 var deftb = ["infotable", "columntable", "databasetable", "pagestable", "usertypetable", "webapitable","usecasetable", "organizationcharttable", "projectscheduletable",
@@ -73,7 +70,7 @@ function setcache()
             localStorage.setItem("teubers_" + nm, itm);
 
         })
-
+ 
         if (typeof (databasetable) != "undefined")
         { 
             $.each(databasetable, (k, item) =>
@@ -82,13 +79,10 @@ function setcache()
                 {
                     var nm = item.Name.toLocaleLowerCase().trim().replace("/ /g", "");
 
-                    alert(nm);
-
                     var itm = JSON.stringify({
                         value: JSON.stringify(window[nm]),
                         expiry: d3,
                     });
-                    alert("<"+nm + " : "+itm);
                     localStorage.setItem("teubers_" + nm, itm);
                 }
             })
