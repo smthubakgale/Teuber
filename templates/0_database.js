@@ -12,6 +12,7 @@ $(window).on("load", function ()
 
         }, 1000)
     }
+    getcache();
 });
 // 0. DefaultTable  
 var deftb = ["infotable", "columntable", "databasetable", "pagestable", "usertypetable", "webapitable","usecasetable", "organizationcharttable", "projectscheduletable",
