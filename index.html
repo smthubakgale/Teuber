@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -293,6 +293,23 @@
                                 <!-- D. Table-->
                                 <div>
                                     <div class="tb_area"></div>
+                                </div>
+                                <!--E. Upload-->
+                                <div>
+                                    <div style="display: flex; color: #E48380; width:80%; margin:auto; margin-top:20px;">
+                                        <div style="color: #717A7F;"> Upload Data </div>
+                                        <div style="flex:1;"></div>
+                                        <div style="padding:10px; cursor:pointer;" onclick="upl()">
+                                            <span class="fa fa-upload"></span>
+                                        </div>
+                                        <script>
+                                            function upl()
+                                            {
+                                                $.globalEval($("#upl").val())
+                                            }
+                                        </script>
+                                    </div>
+                                    <textarea id="upl" style="width:80%; margin-left:10%; margin-top:15px; min-height:70vh;"></textarea>
                                 </div>
                             </div>
                             <!-- 3. PagesTable-->
@@ -659,8 +676,8 @@
      
     <script>
         $(document).ready(function () {
-           // $("#crnt").trigger("click");
-           // $(".tbsr").trigger("click");
+          // $("#crnt").trigger("click");
+          // $(".tbsr").trigger("click");
         });
     </script>
 </body>
