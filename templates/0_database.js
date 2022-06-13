@@ -9,7 +9,8 @@ var deftb = ["infotable", "columntable", "databasetable", "pagestable", "usertyp
     "use_case_diagram"];
  
 function getcache()
-{ 
+{
+    return;
     try {
         $.each(deftb, (k, nm) => {
             var obj = localStorage.getItem("teubers_" + nm);
@@ -43,6 +44,7 @@ function getcache()
 
 function setcache()
 {
+    return;
     var d0 = new Date();
     var d3 = new Date();
     d3.setDate(d0.getDate() + 30);
@@ -67,14 +69,12 @@ function setcache()
                 if (item.TID.indexOf(".") == 0)
                 {
                     var nm = item.Name.toLocaleLowerCase().trim().replace("/ /g", "");
-
-                    alert(nm);
-
+                     
                     var itm = JSON.stringify({
                         value: JSON.stringify(window[nm]),
                         expiry: d3,
                     });
-                    alert("<"+nm + " : "+itm);
+
                     localStorage.setItem("teubers_" + nm, itm);
                 }
             })
@@ -158,7 +158,7 @@ function table1()
     }
     catch (er)
     {
-        alert(er);
+        //alert(er);
     }
     table2();
 }
@@ -213,7 +213,7 @@ function table2()
     }
     catch (er)
     {
-        alert(er);
+       // alert(er);
     }
     table3();
 }
@@ -249,7 +249,7 @@ function table3()
     }
     catch (er)
     {
-        alert(er);
+       // alert(er);
     }
     table4();
 } 
@@ -278,7 +278,7 @@ function table4()
     }
     catch (er)
     {
-        alert(er);
+        //alert(er);
     }
     table5();
 }  
@@ -675,8 +675,7 @@ function table10()
                 proceed(a, b, c, id, nm);
             }
         }
-        catch (er) {
-            alert("KK" + er);
+        catch (er) { 
         }
     }); 
     var kr = $("#infotable").clone(); 
@@ -706,6 +705,7 @@ function table10()
         });
 
     }
+
     settables();
 } 
 // Helpers  
@@ -828,7 +828,7 @@ function loadtable(c, b, a, tn , r = false)
     $("#" + tn).find(".tb_area").html(a.html());
     if (tn == "infotable")
     {
-    $("#" + tn).css("display", "block");
+      //$("#" + tn).css("display", "block");
     }
     setTimeout(function ()
     {
@@ -1122,7 +1122,7 @@ function showtbl(tag)
         //
     }
     catch(er) {
-        alert(er)
+        //alert(er)
     }
 
     $(".mnu").attr("vsb", nm);
@@ -1337,9 +1337,9 @@ function write00(obj)
             arr.push(w);
         }
         catch (err) {
-            alert(err);
-            alert(str)
-            alert(str.substr(60 , 68))
+            //alert(err);
+            //alert(str)
+            //alert(str.substr(60 , 68))
         }
     })
     var e = obj.attr("tbn");
@@ -1482,8 +1482,8 @@ function copy0(tag)
             arr.push(w);
         }
         catch (err) {
-            alert(err);
-            alert(str)
+           // alert(err);
+           // alert(str)
         }
     })
     var e = $(tag).attr("tbn");
@@ -1599,7 +1599,7 @@ function write1v()
             }
         }
         catch (er) {
-            alert(er);
+            //alert(er);
         }
     });
 
@@ -1794,8 +1794,8 @@ function build1(tag)
                 arr.push(w);
             }
             catch (err) {
-                alert(err);
-                alert(str)
+               // alert(err);
+               // alert(str)
             }
         })
         e = obj.attr("tbn");
