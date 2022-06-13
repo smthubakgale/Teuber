@@ -151,7 +151,7 @@
                         <span class="fa fa-bars"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" title="Info" >
+                    <div class="tpmn"  name="info" id="crnt" onclick="showtbl(this)" title="Info" >
                         <span class=" fa fa-info-circle"></span>
                     </div>
                     <div style="width:10px;"></div>
@@ -216,6 +216,12 @@
                     <div class="mnu2">
                         <!--:: Top Menu Pages -->
                         <div style="width:100%;">
+                            <!--0. Page Description--> 
+                            <div id="info" class="tbli">
+                                
+                                
+
+                            </div>
                             <!-- 1. ColumnTable-->
                             <div id="columntable" class="tbli">
                                 <!-- A. Title-->
@@ -706,8 +712,7 @@
      
     <script>
         $(document).ready(function () {
-          // $("#crnt").trigger("click");
-          // $(".tbsr").trigger("click");
+          $("#crnt").trigger("click"); 
         });
     </script>
 </body>
