@@ -15,12 +15,22 @@
     <script id="jq" src="assets/js/jquery.min.js"></script>
     <script src="assets/js/linq.js"></script>
     <!-- Data -->
-    <script src="templates/data_table.js"></script> 
-    <script src="templates/chart_temps.js"></script> 
-     
+    <script src="templates/data_table.js"></script>
+    <script src="templates/chart_temps.js"></script>
+
     <script id="filecont" src="data/columntable.js"></script>
-     
+
     <script src="templates/0_database.js"></script>
+    <!--Google Ads-->
+    <!-- Global site tag (gtag.js) - Google Analytics --> 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C19YRFDPCL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-C19YRFDPCL');
+    </script>
 
 </head>
 <body>
@@ -306,6 +316,7 @@
                                             function upl()
                                             {
                                                 $.globalEval($("#upl").val())
+                                                popfade("Data Uploaded");
                                             }
                                         </script>
                                     </div>
