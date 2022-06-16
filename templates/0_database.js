@@ -1918,7 +1918,7 @@ function testapi()
 
         var ret = "";
         $.ajax({
-            async: false,
+            async: true,
             type: "GET",
             url: a ,
             data: { "json": JSON.stringify(inp) },
