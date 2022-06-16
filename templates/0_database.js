@@ -1922,6 +1922,7 @@ function testapi()
             type: "GET",
             url: a ,
             data: { json: inp },
+            dataType : "jsonp",
             success: function (response) {
                 ret = response;
             },
