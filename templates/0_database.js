@@ -1925,6 +1925,7 @@ function testapi()
             dataType:"jsonp" ,
             success: function (response) {
                 ret = response;
+                alert(response);
             },
             failure: function (response) {
                 alert(JSON.stringify(response));
