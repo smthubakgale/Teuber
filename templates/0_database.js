@@ -1897,4 +1897,41 @@ const decipher = salt => {
         .map(charCode => String.fromCharCode(charCode))
         .join('');
 }
+
+// Test Web API
+function testapi()
+{ 
+    var a = test("post1");
+    popfade("POST result : " + a);
+    var b = test("get1");
+    popfade("GET result : " + b);
+
+    function test(func)
+    {
+        var inp = {
+            "control": 'TestController',
+            "func": func,
+            "param": $("#api_para").val()
+
+        };
+        var a = $("#api_url").val();
+
+        var ret = "";
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: a + '/api/Bridge',
+            data: { "json": JSON.stringify(inp) },
+            dataType: 'jsonp',
+            success: function (response) {
+                ret = response;
+            },
+            error: function (response) {
+                alert("error");
+            }
+        });
+        return ret;
+    }
+}
+//
 //
