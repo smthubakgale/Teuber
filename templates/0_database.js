@@ -1907,27 +1907,29 @@ function testapi()
     popfade("GET result : " + b);
 
     function test(func)
-    {
+    { 
         var inp = {
             "control": 'TestController',
             "func": func,
-            "param": $("#api_para").val()
+            "param": $("#api_param").val()
 
         };
-        var a = $("#api_url").val();
+        var a = $("#api_url").val() + '/api/Bridge/GetData';
 
         var ret = "";
         $.ajax({
             async: false,
             type: "GET",
-            url: a + '/api/Bridge',
-            data: { "json": JSON.stringify(inp) },
-            dataType: 'jsonp',
+            url: a ,
+            data: { json: inp },
             success: function (response) {
                 ret = response;
             },
+            failure: function (response) {
+                alert(JSON.stringify(response));
+            },
             error: function (response) {
-                alert("error");
+                alert(JSON.stringify(response));
             }
         });
         return ret;
