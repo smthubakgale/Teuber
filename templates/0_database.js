@@ -1914,7 +1914,7 @@ function testapi()
             "param": $("#api_param").val()
 
         };
-        var a = $("#api_url").val() + '/api/Bridge';
+        var a = $("#api_url").val() + '/api/Bridge/Get';
 
         var ret = "";
         $.ajax({
