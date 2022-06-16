@@ -1921,7 +1921,7 @@ function testapi()
             async: false,
             type: "GET",
             url: 'https://testing-webapi.herokuapp.com/Home/Get0?json={%22control%22:%22TestController%22,%22func%22:%22get1%22,%22param%22:%22sam%22}' ,
-            dataType : "jsonp" ,
+            dataType : "text" ,
             success: function (response) {
                 ret = response;
             },
