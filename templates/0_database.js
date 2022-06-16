@@ -1918,7 +1918,6 @@ function testapi()
 
         var ret = "";
         $.ajax({
-            async: true,
             type: "GET",
             url: a ,
             data: { "json": JSON.stringify(inp) },
@@ -1932,7 +1931,8 @@ function testapi()
             },
             error: function (response) {
                 alert(JSON.stringify(response));
-            }
+            },
+        async: false
         });
         return ret;
     }
