@@ -1920,7 +1920,7 @@ function testapi()
         $.ajax({
             async: false,
             type: "GET",
-            url: 'https://testing-webapi.herokuapp.com/Home/Get0?json={%22control%22:%22TestController%22,%22func%22:%22get1%22,%22param%22:%22sam%22}' ,
+            url: 'https://bsite.net/teuberwebapi345/Home/Get0?json={"control":"TestController","func":"get1","param":"sam"}' ,
             dataType:"jsonp" ,
             success: function (response) {
                 ret = response;
