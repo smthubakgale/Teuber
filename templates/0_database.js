@@ -1914,13 +1914,14 @@ function testapi()
             "param": $("#api_param").val()
 
         };
-        var a = $("#api_url").val() + '/Home/Get0';
+        var a = $("#api_url").val() + '/api/Bridge';
 
         var ret = "";
         $.ajax({
             async: false,
             type: "GET",
-            url: 'https://bsite.net/teuberwebapi345/Home/Get0?json={"control":"TestController","func":"get1","param":"sam"}' ,
+            url: a ,
+            data: { "json": JSON.stringify(inp) },
             dataType:"jsonp" ,
             success: function (response) {
                 ret = response;
