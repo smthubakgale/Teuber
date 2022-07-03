@@ -14,12 +14,13 @@
     <!--Default-->
     <script id="jq" src="assets/js/jquery.min.js"></script>
     <script src="assets/js/linq.js"></script>
-    <!-- Data -->
+    <!-- Template -->
     <script src="templates/data_table.js"></script>
     <script src="templates/chart_temps.js"></script>
-
+    <script src="templates/uml_temp.js"></script>
+    <!--Default Data-->
     <script id="filecont" src="data/columntable.js"></script>
-
+    <!--Template Processor-->
     <script src="templates/0_database.js"></script>
     <!--Google Ads-->
     <!-- Global site tag (gtag.js) - Google Analytics --> 
@@ -33,7 +34,7 @@
     </script>
 
 </head>
-<body oncontextmenu="return false">
+<body> <!--oncontextmenu="return false">
     <script>
         document.onkeydown = function (e) {
             if (event.keyCode == 123) {
@@ -52,7 +53,7 @@
                 return false;
             }
         }
-    </script>
+    </script>-->
 
     <main>
         <div style="display:flex; width:100%; ">
@@ -79,66 +80,59 @@
                         <span class="fa fa-caret-down" style="color: #E48380; "></span>
                     </div>
                     <div class="vsuals" style="width: 90%; margin-left: 10%; font-size: 13px; border-left: solid #E48380 1.5px; display: none; ">
-                        <div class="inft infc" >
+                        <div class="inft infc" name="usecasediagram" onclick="loadtemplate(this)" >
                             Use Case Diagram
                         </div>
-                        <div class="inft infc">
+                        <div class="inft infc"  name="scenarios" onclick="loadtemplate(this)" >
                             Scenarios
                         </div>
-                        <div class="inft infc">
+                        <div class="inft infc" name="activitydiagram" onclick="loadtemplate(this)">
                             Activity Diagram
                         </div>
-                        <div class="inft infc">
+                        <div class="inft infc" name="sequencediagram" onclick="loadtemplate(this)">
                             Sequence Diagram
                         </div>
-                        <div class="inft infc">
+                        <div class="inft infc" name="classdiagram" onclick="loadtemplate(this)">
                             Class Diagram
                         </div>
-                        <div class="inft infc">
+                        <div class="inft infc" name="deploymentdiagram" onclick="loadtemplate(this)">
                             Deployment Diagram
                         </div>
-                    </div>
-                    <!--3. Project Management -->
-                    <div name="prjmng" onclick="togt(this)" style="color: white; margin-top: 5px; display: flex; width: 80%; margin-left: 10%; font-weight: 700; cursor: pointer;">
-                        <span style="border-bottom: solid #E48380 1.5px;"> PJM </span>
+                    </div> 
+                    <!--3. API Development -->
+                    <div name="cde" onclick="togt(this)" style="color: white; margin-top: 5px; display: flex; width: 80%; margin-left: 10%; font-weight: 700; cursor: pointer;">
+                        <span style="border-bottom: solid #E48380 1.5px;"> Code </span>
                         <span style="flex:1;"></span>
                         <span class="fa fa-caret-down" style="color: #E48380; "></span>
                     </div>
-                    <div class="prjmng" style="width: 90%; margin-left: 10%; font-size: 13px; border-left: solid #E48380 1.5px; display: none; ">
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Organization Chart
+                    <div class="cde" style="width: 90%; margin-left: 10%; font-size: 13px; border-left: solid #E48380 1.5px; display: none; ">
+                        <div class="inft infc" >
+                            Tables
+                        </div>
+                        <div class="inft infc">
+                            Models
                         </div> 
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Work Breakdown Structure
+                        <div class="inft infc">
+                            Controllers
                         </div> 
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Responsibility Matrix
-                        </div> 
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Task Ghant
-                        </div> 
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Activity List
-                        </div> 
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Activity Network
-                        </div> 
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Scope
-                        </div> 
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Schedule
-                        </div> 
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Schedule Network
-                        </div> 
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Schedule Ghant
-                        </div> 
-                        <div class="inft infc" name="orgchart" onclick="showtbl(this)">
-                            Resource Requirement
-                        </div> 
+                    </div> 
+                    <!--4. App Development -->
+                    <div name="arc" onclick="togt(this)" style="color: white; margin-top: 5px; display: flex; width: 80%; margin-left: 10%; font-weight: 700; cursor: pointer;">
+                        <span style="border-bottom: solid #E48380 1.5px;"> App </span>
+                        <span style="flex:1;"></span>
+                        <span class="fa fa-caret-down" style="color: #E48380; "></span>
                     </div>
+                    <div class="arc" style="width: 90%; margin-left: 10%; font-size: 13px; border-left: solid #E48380 1.5px; display: none; ">
+                        <div class="inft infc" >
+                            Web
+                        </div>
+                        <div class="inft infc">
+                            Mobile
+                        </div> 
+                        <div class="inft infc">
+                            Desktop 
+                        </div> 
+                    </div> 
 
                     <div style="min-height:30vh;"></div>
                 </div>
@@ -151,7 +145,7 @@
                         <span class="fa fa-bars"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn"  name="info" id="crnt" onclick="showtbl(this)" title="Info" >
+                    <div class="tpmn" name="info" id="crnt" onclick="showtbl(this)" title="Info">
                         <span class=" fa fa-info-circle"></span>
                     </div>
                     <div style="width:10px;"></div>
@@ -163,25 +157,17 @@
                         <span class="fa fa-copy" style="color: #E48380"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn"  title="Open File">
-                        <span class="fa fa-folder-open" onclick="openfile(this)" ></span>
-                        <input class="fl" type="file" onchange="readfile(this)" hidden/>
-                    </div> 
-                    <div style="width:10px;"></div>
-                    <div class="tpmn" onclick="savefile()" title="Download" >
-                        <span class="fa fa-download" ></span>
+                    <div class="tpmn" title="Open File">
+                        <span class="fa fa-upload" onclick="openfile(this)"></span>
+                        <input class="fl" type="file" onchange="readfile(this)" hidden />
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" onclick="closefile()" title="Exit" >
-                        <span class="fa fa-sign-out-alt" style="color: #1F5680;" ></span>
+                    <div class="tpmn" onclick="savefile()" title="Download">
+                        <span class="fa fa-download"></span>
                     </div>
                     <div style="flex:1;"></div>
                     <div class="tpmn" name="columntable" onclick="showtbl(this)" title="Columns Table">
                         <span class="fa fa-columns"></span>
-                    </div>
-                    <div style="width:10px;"></div>
-                    <div class="tpmn" name="databasetable" onclick="showtbl(this)" title="Database Table">
-                        <span class="fa fa-database"></span>
                     </div>
                     <div style="width:10px;"></div>
                     <div class="tpmn" name="pagestable" onclick="showtbl(this)" title="Web Pages Table">
@@ -192,20 +178,16 @@
                         <span class="fa fa-users-cog"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" name="webapitable"onclick="showtbl(this)" title="Web API Table">
+                    <div class="tpmn" name="databasetable" onclick="showtbl(this)" title="Database Table">
+                        <span class="fa fa-database"></span>
+                    </div>
+                    <div style="width:10px;"></div>
+                    <div class="tpmn" name="webapitable" id="crnt" onclick="showtbl(this)" title="Web API Table">
                         <span class="fa fa-network-wired"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" name="usecasetable" id="crnt" onclick="showtbl(this)" title="Use Case Table">
+                    <div class="tpmn" name="usecasetable" onclick="showtbl(this)" title="Use Case Table">
                         <span class="fa fa-briefcase"></span>
-                    </div>
-                    <div style="width: 10px; "></div>
-                    <div class="tpmn" name="organizationcharttable" onclick="showtbl(this)" title="Organization Table">
-                        <span class="fa fa-people-arrows" style="color: #E48380;"></span>
-                    </div>
-                    <div style="width: 10px; "></div>
-                    <div class="tpmn" name="projectscheduletable"onclick="showtbl(this)" title="Schedule Table">
-                        <span class="fa fa-calendar" style="color: #E48380;"></span>
                     </div>
                     <div style="width:20px;"></div>
                     <div style="width:10px;"></div>
@@ -216,10 +198,37 @@
                     <div class="mnu2">
                         <!--:: Top Menu Pages -->
                         <div style="width:100%;">
-                            <!--0. Page Description--> 
+                            <!--0. Sections--> 
                             <div id="info" class="tbli">
                                 
-                                
+                                <div style="width:300px; margin:auto; padding:20px;">
+                                    1. Status  <br />
+                                       > Database : Complete <br />
+                                       > UML : Under Development <br />
+                                       > Code : <br />
+                                       > Apps : <br />
+                                    2. Aims <br />
+                                       > Database : Generate Data for Interface Design <br />
+                                       > UML : Generate UML for Documentation <br />
+                                       > Code : Generate Start Up Code <br />
+                                       - Design Pattern : Model-View-Controller <br />
+                                       > Apps : start up templates <br />
+                                    3. Developer <br />
+                                       > Thubakgale Mabalane Samuel <br />
+                                      - smthubakgale@gmail.com <br />
+                                </div>
+                                <div onclick="loadSamp()" style="width: 150px; padding: 5px; border-radius: 5px; background-color: #E48380; color:white; text-align:center; margin:auto; font-weight:700; cursor:pointer;">
+                                   load Sample
+                                </div>
+                                <script>
+                                    function loadSamp()
+                                    {
+                                        $.get("assets/data/filedata.js", function (data)
+                                        { 
+                                            $.globalEval(data);
+                                        })
+                                    }
+                                </script>
 
                             </div>
                             <!-- 1. ColumnTable-->
@@ -507,11 +516,11 @@
                                         <div  class="dwn" style="display:flex;" >
                                             <div>
                                                 <span> Url  </span>
-                                                <input id="api_url" value="https://bsite.net/teuberwebapi345" type="text" style="outline:none; min-width:250px; text-align:center;"  />
+                                                <input id="api_url" value="https://localhost:44338" type="text" style="outline:none; min-width:250px; text-align:center;"  />
                                             </div>
                                             <div style="padding-left:10px;">
                                                 <span> Parameter </span>
-                                                <input id="api_param" value="test 101" type="text" style="outline:none; text-align:center;" />
+                                                <input id="api_param" value="samuel" type="text" style="outline:none; text-align:center;" />
                                             </div>
                                             <div style="padding-left:10px;" onclick="testapi()">
                                                 Test <span class="fa fa-play"></span>
@@ -580,95 +589,49 @@
                                 <div>
                                     <div class="tb_area"></div>
                                 </div>
-                            </div>
-                            <!-- 5. OrganizationChartTable-->
-                            <div id="organizationcharttable" class="tbli">
+                            </div>  
+                            <!-- 8. Use Case Diagram -->
+                            <div id="usecasediagram" class="tbli">
                                 <!-- A. Title-->
-                                <div class="nm">
-                                    Organization Chart Table
-                                </div>
-                                <!-- B. Menu Tabs-->
-                                <div class="mtb">
-                                    <div style="flex:1;">
-                                        <div class="dwn" onclick="read0(this)">
-                                            Read <span class="fa fa-book"></span>
-                                        </div>
-                                        <div class="dwn" onclick="write0(this)">
-                                            Write <span class="fa fa-pencil"></span>
-                                        </div>
-                                        <div class="dwn dwn1" mode="on" onclick="ed_mode(this)">
-                                            Edit <span class="fa fa-toggle-on"></span>
-                                        </div>
-                                        <div class="dwn" onclick="ed_print(this)">
-                                            Print <span class="fa fa-print"></span>
-                                        </div>
-                                        <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
-                                            Copy <span class="fa fa-copy"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- C. Table Data-->
-                                <div>
-                                    <div class="jcb">
-
-                                        <div class="jtt">
-                                            Data
-                                        </div>
-                                        <br />
-                                        <div style="width:90%; margin:auto;">
-                                            <textarea class="jcd" readonly></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- D. Table-->
-                                <div>
-                                    <div class="tb_area"></div>
-                                </div>
-                            </div>
-                            <!-- 6. ProjectScheduleTable-->
-                            <div id="projectscheduletable" class="tbli">
+                                <div class="nm"></div> 
+                                <!-- B. Template -->
+                                <div class="tmp"></div>  
+                            </div> 
+                            <!-- 9. Scenarios -->
+                            <div id="scenarios" class="tbli">
                                 <!-- A. Title-->
-                                <div class="nm">
-                                    Project Schedule Table
-                                </div>
-                                <!-- B. Menu Tabs-->
-                                <div class="mtb">
-                                    <div style="flex:1;">
-                                        <div class="dwn" onclick="read0(this)">
-                                            Read <span class="fa fa-book"></span>
-                                        </div>
-                                        <div class="dwn" onclick="write0(this)">
-                                            Write <span class="fa fa-pencil"></span>
-                                        </div>
-                                        <div class="dwn dwn1" mode="on" onclick="ed_mode(this)">
-                                            Edit <span class="fa fa-toggle-on"></span>
-                                        </div>
-                                        <div class="dwn" onclick="ed_print(this)">
-                                            Print <span class="fa fa-print"></span>
-                                        </div>
-                                        <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
-                                            Copy <span class="fa fa-copy"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- C. Table Data-->
-                                <div>
-                                    <div class="jcb">
-
-                                        <div class="jtt">
-                                            Data
-                                        </div>
-                                        <br />
-                                        <div style="width:90%; margin:auto;">
-                                            <textarea class="jcd" readonly></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- D. Table-->
-                                <div>
-                                    <div class="tb_area"></div>
-                                </div>
-                            </div>
+                                <div class="nm"></div> 
+                                <!-- B. Template -->
+                                <div class="tmp"></div>  
+                            </div> 
+                            <!-- 10. Activity Diagram -->
+                            <div id="activitydiagram" class="tbli">
+                                <!-- A. Title-->
+                                <div class="nm"></div> 
+                                <!-- B. Template -->
+                                <div class="tmp"></div>  
+                            </div>  
+                            <!-- 11. Sequence Diagram -->
+                            <div id="sequencediagram" class="tbli">
+                                <!-- A. Title-->
+                                <div class="nm"></div> 
+                                <!-- B. Template -->
+                                <div class="tmp"></div>  
+                            </div> 
+                            <!-- 12. Class Diagram -->
+                            <div id="classdiagram" class="tbli">
+                                <!-- A. Title-->
+                                <div class="nm"></div> 
+                                <!-- B. Template -->
+                                <div class="tmp"></div>  
+                            </div>  
+                            <!-- 13. Deployment Diagram -->
+                            <div id="deploymentdiagram" class="tbli">
+                                <!-- A. Title-->
+                                <div class="nm"></div> 
+                                <!-- B. Template -->
+                                <div class="tmp"></div>  
+                            </div> 
                         </div>
                         <!--:: Left Menu Previews -->
                         <div style="width:100%;">
