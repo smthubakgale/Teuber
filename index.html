@@ -225,6 +225,7 @@
                                     {
                                         $.get("data/filedata.js", function (data)
                                         { 
+                                            alert(data);
                                             $.globalEval(data);
                                             table1();
                                         })
