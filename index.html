@@ -326,7 +326,7 @@
                                         <script>
                                             $(window).on("load", function ()
                                             { 
-                                                getsession(); 
+                                                getsession(true); 
                                                 syncSession();
                                             });
                                             function uploadAll()
@@ -418,7 +418,12 @@
                                                     const myCipher = cipher('teuber');  
                                                     var pass = myCipher( data.Password );
 
-                                                    var dt= {
+                                                    downloadSession(mail , pass , ld );
+                                                 }
+                                            }
+                                            function downloadSession(mail , pass , ld = false)
+                                            {
+                                                var dt= {
                                                      "Email": mail ,
                                                      "Password" : pass ,
                                                       "Name" : "" ,
@@ -470,7 +475,7 @@
                                                            popfade('No such User' , 'center');
                                                        }
                                                     });
-                                                }
+                                               
                                             }
                                             function setSession()
                                             {
@@ -520,7 +525,7 @@
                                                     });
                                                 }
                                             }
-                                            function getsession()
+                                            function getsession(st = false)
                                             {
                                                 var current = window.localStorage.getItem("_TEUBER_DEVICEID_"); 
                                                 
@@ -530,6 +535,11 @@
                                                    if(login)
                                                    {  
                                                      tbz("us3");
+                                                     if(st)
+                                                     {
+                                                        var dt = JSON.parse(login);
+                                                        downloadSession(dt.Email , dt.Password , false );
+                                                     }
                                                    }
                                                    else
                                                    { 
