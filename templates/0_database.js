@@ -1,7 +1,26 @@
 
+// Initialize Firebase
+var firebaseConfig = {
+    apiKey: "AIzaSyAcLoJXiHFz0v6HeRoysnx5mrOvVsxXLWE",
+    authDomain: "teuber-21f22.firebaseapp.com",
+    databaseURL: "https://teuber-21f22-default-rtdb.firebaseio.com",
+    projectId: "teuber-21f22",
+    storageBucket: "teuber-21f22.appspot.com",
+    messagingSenderId: "45781902930",
+    appId: "1:45781902930:web:f3ca560bc4503a2c55a18b",
+    measurementId: "G-M0K9E7MR00"
+  };
+
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
+var db = firebase.firestore();
+db.settings({timestampsInSnapshots: true}); 
+ 
+//
+
 $(window).on("load", function ()
-{
-    getcache();
+{ 
     table0();
 });
 // 0. DefaultTable  
@@ -54,7 +73,7 @@ function setcache()
         $.each(deftb, (k, nm) =>
         { 
             var itm = {
-                value: JSON.stringify(window[nm]) ,
+            value: JSON.stringify(window[nm]) ,
                 expiry: d3 ,
             }
             var itm = JSON.stringify(itm); 
@@ -1234,6 +1253,62 @@ function ed_mode(tag) {
         }
     }
 } 
+function syncsession(tag)
+{ 
+    var nm = $(tag).attr("tbn"); 
+    var a = $("<div/>");
+    a.attr("name" , nm);
+    updateSession(a[0]);
+}
+function updateSession(tag)
+{
+    var nm = $(tag).attr("name");
+    var a = window.localStorage.getItem("_TEUBER_LOGIN_" );
+    if(a)
+    {
+        var b = JSON.parse(a); 
+        var c = 
+        {
+          "Email": b.Email ,
+          "Password" : b.Password ,
+          "Name" : "" ,
+          "Data" : ""
+        }; 
+        // Write 
+        db.collection('userdata').where("Email", "==", b.Email).where("Name" ,"==",  nm).get().then((snapshot) =>
+        { 
+            if(snapshot.size == 0)
+            { 
+                var d = c;
+                d.Name = nm;
+                d.Data = JSON.stringify(window[nm]);
+          
+                if(d.Data != "{}")
+                {
+                    db.collection('userdata').add(d); 
+                    popfade(nm + ' created');
+                }
+            } 
+            if(snapshot.size >= 1)
+            {
+                var d = c;
+                d.Name = nm;
+                d.Data = JSON.stringify(window[nm]); 
+
+                if(d.Data != "{}")
+                {
+                    snapshot.docs.forEach(doc => 
+                    { 
+                        var id = doc.id;   
+                        db.collection('userdata').doc(id).set(d, { merge: true }); 
+                        popfade(nm + ' updated');
+                    });
+                }
+            }
+        });
+        //
+    }
+}
 function showtbl(tag)
 {
     var nm = $(tag).attr("name");
@@ -1332,6 +1407,10 @@ function showtbl(tag)
 
     $(".mnu").attr("vsb", nm);
     lvtb($("#" + nm)[0]);
+
+    try{
+        updateSession(tag);
+    }catch{}
 }
 
 function tog(tag) {
@@ -2029,10 +2108,20 @@ function build1(tag)
     $("#infotable").css("display", "none");
 }
 
-function popfade(msg) {
+function popfade(msg , ps = null) {
+    if(ps == "center")
+    {
+        $(".clbrd").find(".a").css("flex","1");
+        $(".clbrd").find(".b").css("flex","1");
+    }
+    else{
+        $(".clbrd").find(".a").css("flex","1");
+        $(".clbrd").find(".b").css("flex","0");
+    }
+
     $(".clbrd").find(".vl").html(msg);
     $(".clbrd").fadeIn(800);
-    $(".clbrd").fadeOut(1800);
+    $(".clbrd").fadeOut(2500);
 } 
 function openfile(tag) {
     $(tag).parent().find(".fl").trigger("click");
