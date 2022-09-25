@@ -13,7 +13,11 @@
     <link rel="stylesheet" href="templates/0_database.css">
     <!--Default-->
     <script id="jq" src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/linq.js"></script>
+    <script src="assets/js/linq.js"></script> 
+    <!-- Firebase --> 
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-analytics.js"></script>
     <!-- Template -->
     <script src="templates/data_table.js"></script>
     <script src="templates/chart_temps.js"></script>
@@ -145,17 +149,13 @@
                         <span class="fa fa-bars"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" name="info" id="crnt" onclick="showtbl(this)" title="Info">
-                        <span class=" fa fa-info-circle"></span>
-                    </div>
-                    <div style="width:10px;"></div>
                     <div class="tpmn" onclick="write2()" title="Write">
                         <span class="fa fa-pencil" style="color: #E48380"></span>
                     </div>
                     <div style="width:10px;"></div>
-                    <div class="tpmn" title="Copy" onclick="copy2(); popfade('Copied to Clipboard');">
+                    <div class="tpmn" title="Copy" onclick="copy2(); popfade('Copied to Clipboard' ,'center');">
                         <span class="fa fa-copy" style="color: #E48380"></span>
-                    </div>
+                    </div>  
                     <div style="width:10px;"></div>
                     <div class="tpmn" title="Open File">
                         <span class="fa fa-upload" onclick="openfile(this)"></span>
@@ -164,7 +164,11 @@
                     <div style="width:10px;"></div>
                     <div class="tpmn" onclick="savefile()" title="Download">
                         <span class="fa fa-download"></span>
-                    </div>
+                    </div> 
+                    <div style="width:10px;"></div>
+                    <div class="tpmn" name="info" id="crnt" onclick="showtbl(this)" title="Profile">
+                        <span class=" fa fa-user-circle" style="color: #E48380"></span>
+                    </div> 
                     <div style="flex:1;"></div>
                     <div class="tpmn" name="columntable" onclick="showtbl(this)" title="Columns Table">
                         <span class="fa fa-columns"></span>
@@ -200,26 +204,399 @@
                         <div style="width:100%;">
                             <!--0. Sections--> 
                             <div id="info" class="tbli">
-                                
-                                <div style="width:300px; margin:auto; padding:20px;">
-                                    1. Status  <br />
-                                       > Database : Complete <br />
-                                       > UML : Under Development <br />
-                                       > Code : <br />
-                                       > Apps : <br />
-                                    2. Aims <br />
-                                       > Database : Generate Data for Interface Design <br />
-                                       > UML : Generate UML for Documentation <br />
-                                       > Code : Generate Start Up Code <br />
-                                       - Design Pattern : Model-View-Controller <br />
-                                       > Apps : start up templates <br />
-                                    3. Developer <br />
-                                       > Thubakgale Mabalane Samuel <br />
-                                      - smthubakgale@gmail.com <br />
+                                <style>
+                                     .aside { 
+                                        padding: 15px;
+                                        padding-top:5px;
+                                        color: #ffffff;
+                                        text-align: center;
+                                        font-size: 14px;
+                                        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                                        width:auto; min-height:90vh; background-color:#34444C; 
+                                        border-top-left-radius: 35px;
+                                    }
+                                    /* mobile */
+                                    .rspnd{
+                                       display:block;
+                                    }
+
+                                    @media only screen and (min-width: 600px) {
+                                        /* For tablets: */
+                                        .rspnd{
+                                        display:block;
+                                        }
+                                    }
+                                    @media only screen and (min-width: 768px) {
+                                        /* For desktop: */
+                                        .rspnd{
+                                        display:flex;
+                                        }
+                                    }
+                                </style>
+                                <div class="rspnd" > 
+                                    <div style="flex:1;">
+                                        <style>
+                                         .btns{
+                                             width: 150px; 
+                                             padding: 5px; 
+                                             border-radius: 5px; 
+                                             background-color: #E48380; 
+                                             color:white; 
+                                             text-align:center; 
+                                             margin:auto; 
+                                             font-weight:700; 
+                                             cursor:pointer; 
+                                         }
+                                         .inpa{
+                                             width:200px; margin:auto; padding-bottom:5px;
+                                         }
+                                         .inpb{
+                                             width:100%; outline:none; padding:3px; text-align: center;
+                                         }
+                                         .topl {
+                                            border-bottom:solid #B7C0CD 2px; color:#B7C0CD; font-size:18px; 
+                                        }
+                                        .usrs { display:none; }
+                                        .hrf{padding:15px; text-align:center; cursor:pointer; font-weight:bold; font-size:16px; color:#34444C}
+                                        .hrf:hover{color:#E48380;}
+                                        </style>
+                                        <div class="usrs us1">
+                                            <div style="padding:10px; background-color:#34444C;border-bottom-right-radius: 40px;">
+                                                <div class="topl" style="width:65px"> Register </div>
+                                            </div>
+                                           <div style="width:400px; margin:auto; padding-top:30px;">
+                                              <div style="font-size:90px; color:#34444C; text-align:center;">
+                                                <span class="fa fa-user-circle"></span>
+                                              </div>
+                                              <div class="inpa">
+                                                <input id="emailA" class="inpb" type="email" placeholder="Email Address" />
+                                              </div>
+                                              <div class="inpa">
+                                                <input id="passA" class="inpb" type="password" placeholder="Password" />
+                                              </div>
+                                              <div onclick="setSession()" class="btns" style="background-color:#34444C; margin-top:10px;">
+                                                Register
+                                            </div>
+                                            <div class="hrf" onclick="tbz('us2')">
+                                                Account Already Exists ? <br/> Sign in 
+                                            </div>
+                                           </div>
+                                        </div>
+ 
+                                        <div class="usrs us2">
+                                            <div style="padding:10px; background-color:#34444C;border-bottom-right-radius: 40px;">
+                                                <div class="topl" style="width:65px"> Login </div>
+                                            </div>
+                                           <div style="width:400px; margin:auto; padding-top:30px;">
+                                              <div style="font-size:90px; color:#34444C; text-align:center;">
+                                                <span class="fa fa-user-circle"></span>
+                                              </div>
+                                              <div class="inpa">
+                                                <input id="emailB" class="inpb" type="email" placeholder="Email Address" />
+                                              </div>
+                                              <div class="inpa">
+                                                <input id="passB" class="inpb" type="password" placeholder="Password" />
+                                              </div>
+                                              <div class="inpa">
+                                                <span>Link Current Data : </span>
+                                                <input id="checkB" type="checkbox" />
+                                              </div>
+                                              <div onclick="verifySession()" class="btns" style="background-color:#34444C; margin-top:10px;">
+                                                Login
+                                            </div>
+                                            <div class="hrf" onclick="tbz('us2')">
+                                                No Account ? <br/> Sign up 
+                                            </div>
+                                           </div>
+                                        </div>
+ 
+                                        <div class="usrs us3">
+                                            <div style="padding:10px; background-color:#34444C;border-bottom-right-radius: 40px;">
+                                                <div class="topl" style="width:65px"> Sign Out </div>
+                                            </div>
+                                           <div style="width:400px; margin:auto; padding-top:30px;">
+                                              <div style="font-size:90px; color:#34444C; text-align:center;">
+                                                <span class="fa fa-user-circle"></span>
+                                              </div> 
+                                              <div onclick="remSession()" class="btns" style="background-color:#34444C; margin-top:10px;">
+                                                Logout
+                                            </div> 
+                                           </div>
+                                        </div>
+                                        <script>
+                                            $(window).on("load", function ()
+                                            { 
+                                                getsession(); 
+                                                syncSession();
+                                            });
+                                            function uploadAll()
+                                            {
+                                                var nms = [];
+                                                try
+                                                {
+                                                   $.each(deftb, (k, nm) =>{ nms.push(nm); });
+                                                }
+                                                catch{}
+
+                                                try
+                                                {
+                                                  $.each(databasetable, (k, nm) =>{ nms.push(nm); });
+                                                }
+                                                catch{}
+
+                                                $.each(nms, (k, nm) =>
+                                                { 
+                                                    var a = $("<div/>");
+                                                    a.attr("name" , nm);
+                                                    updateSession(a[0]);
+                                                });
+                                            }
+                                            function syncSession()
+                                            {
+                                                var a = window.localStorage.getItem("_TEUBER_LOGIN_" );
+                                                if(a)
+                                                {
+                                                    var b = JSON.parse(a); 
+                                                    var c = 
+                                                    {
+                                                      "Email": b.Email ,
+                                                      "Password" : b.Password ,
+                                                      "Name" : "" ,
+                                                      "Data" : ""
+                                                    }; 
+                                                    
+                                                    setInterval(function()
+                                                    {
+                                                        $.each(deftb, (k, nm) =>
+                                                        { 
+                                                            db.collection('userdata').where("Email", "==", b.Email).where("Name" ,"==",  nm).get().then((snapshot) =>
+                                                            { 
+                                                                if(snapshot.size == 0)
+                                                                { 
+                                                                    var d = c;
+                                                                    d.Name = nm;
+                                                                    d.Data = JSON.stringify(window[nm]);
+                                                              
+                                                                    db.collection('userdata').add(d); 
+                                                                }  
+                                                            });
+                                                        })
+                                                    } , 5000);
+
+                                                }
+                                            }
+                                            function tbz(cl)
+                                            {
+                                               $(".usrs").css("display" , "none");
+                                               $("." + cl).css("display" , "block");
+                                            }
+                                            function remSession()
+                                            {  
+                                                window.localStorage.removeItem("_TEUBER_LOGIN_" ); 
+                                                getsession(); 
+                                            }
+                                            function verifySession()
+                                            {
+                                                var data = {
+                                                    "Email": $("#emailB").val() ,
+                                                    "Password" : $("#passB").val() + ""  
+                                                }
+
+                                                if(data.Email == "")
+                                                {
+                                                    popfade('Enter Email Address','center');
+                                                }
+                                                else if(data.Password == "")
+                                                {
+                                                    popfade('Enter Pasword' , 'center');
+                                                }
+                                                else{
+       
+                                                     var ld = $("#checkB").prop("checked"); 
+
+                                                    var mail = data.Email;
+                                                    const myCipher = cipher('teuber');  
+                                                    var pass = myCipher( data.Password );
+
+                                                    var dt= {
+                                                     "Email": mail ,
+                                                     "Password" : pass ,
+                                                      "Name" : "" ,
+                                                      "Data" : ""
+                                                    } ;
+                                                    
+                                                    var cout = 0;
+                                                    db.collection('userdata').where("Name", "==", dt.Name).where("Email", "==", dt.Email).where("Password", "==", dt.Password).get().then((snapshot) =>
+                                                    {
+                                                       if(snapshot.size >= 1 )
+                                                       { 
+                                                            if(ld)
+                                                            {
+                                                                uploadAll(); 
+                                                            }
+                                                            db.collection('userdata').where("Email", "==", dt.Email).where("Password", "==", dt.Password).get().then((snapshot) =>
+                                                            { 
+                                                                snapshot.docs.forEach(doc => 
+                                                                {
+                                                                    var d = doc.data();
+                                                                    if(d.Data != "{}" && d.Name != "")
+                                                                    {
+                                                                        cout++;
+                                                                        var sz = snapshot.size - 1;
+
+                                                                        var f = "var " + d.Name + " = " + d.Data + ";" ; 
+                                                                        $.globalEval(f);
+ 
+                                                                        if(cout >= sz)
+                                                                        {
+                                                                           popfade('Data Loaded','center')
+                                                                           table1();
+                                                                        } 
+                                                                    }
+                                                                });
+                                                            });
+
+                                                           var ds = JSON.stringify(dt); 
+                                                           popfade('Logged In' , 'center');
+ 
+                                                           window.localStorage.setItem("_TEUBER_DEVICEID_" , ds);
+                                                           window.localStorage.setItem("_TEUBER_LOGIN_" , ds);  
+
+                                                           getsession();
+                                                           syncSession();
+                                                       }
+                                                       else
+                                                       {
+                                                           popfade('No such User' , 'center');
+                                                       }
+                                                    });
+                                                }
+                                            }
+                                            function setSession()
+                                            {
+                                                var data = {
+                                                    "Email": $("#emailA").val() ,
+                                                    "Password" : $("#passA").val() + ""  
+                                                }
+
+                                                if(data.Email == "")
+                                                {
+                                                    popfade('Enter Email Address','center');
+                                                }
+                                                else if(data.Password == "")
+                                                {
+                                                    popfade('Enter Pasword' , 'center');
+                                                }
+                                                else{
+                                                    db.collection('userdata').where("Email", "==", data.Email).get().then((snapshot) =>
+                                                    {
+                                                       if(snapshot.size == 0 )
+                                                       {
+                                                           var mail = data.Email;
+                                                           const myCipher = cipher('teuber');  
+                                                           var pass = myCipher( data.Password );
+
+                                                           var dt= {
+                                                                "Email": mail ,
+                                                                "Password" : pass ,
+                                                                "Name" : "" ,
+                                                                "Data" : ""
+                                                            } 
+                                                           var ds = JSON.stringify(dt);
+                                                            
+                                                           db.collection('userdata').add(dt);
+                                                           popfade('User Registered' , 'center');
+
+                                                           window.localStorage.setItem("_TEUBER_DEVICEID_" , ds);
+                                                           window.localStorage.setItem("_TEUBER_LOGIN_" , ds); 
+
+                                                           getsession();
+                                                           syncSession();
+                                                       }
+                                                       else
+                                                       {
+                                                           popfade('User Already Exists' , 'center');
+                                                       }
+                                                    });
+                                                }
+                                            }
+                                            function getsession()
+                                            {
+                                                var current = window.localStorage.getItem("_TEUBER_DEVICEID_"); 
+                                                
+                                                if(current)
+                                                { 
+                                                   var login = window.localStorage.getItem("_TEUBER_LOGIN_"); 
+                                                   if(login)
+                                                   {  
+                                                     tbz("us3");
+                                                   }
+                                                   else
+                                                   { 
+                                                      tbz("us2");
+                                                   }
+                                                }
+                                                else
+                                                { 
+                                                    tbz("us1");
+                                                }
+                                            }
+                                           </script>
+                                    </div>
+                                    <div style="width:300px; padding:20px; padding-top:5px;">
+                                        <style>
+                                            .aside ul{text-align:left;}
+                                            .aside b{color:#E48380;}
+                                        </style>
+                                        <div class="aside" >
+                                            <h2>What is Teuber ?</h2>
+                                            <p> Teuber is an App Design Platform </p>
+                                            <h2> Aims </h2> 
+                                            <ul>
+                                                <li> <b> Database</b><br/>
+                                                     Generate Data for Interface Design
+                                                </li>
+                                                <li> <b> UML </b><br/>
+                                                    Generate UML for Documentation
+                                                </li>
+                                                <li> <b> Code </b><br/>
+                                                    Generate Start Up Code
+                                                </li>
+                                                <li> <b> Apps </b><br/>
+                                                    Start up templates 
+                                                </li>
+                                            </ul>
+                                            <h2> Status </h2> 
+                                            <ul>
+                                                <li> <b> Database</b><br/>
+                                                     Complete
+                                                </li>
+                                                <li> <b> UML </b><br/>
+                                                    Under Development
+                                                </li>
+                                                <li> <b> Code </b><br/>
+                                                    Upcoming
+                                                </li>
+                                                <li> <b> Apps </b><br/>
+                                                    Upcoming  
+                                                </li>
+                                            </ul>
+                                            <h2> Developer  </h2>
+                                            <ul>
+                                                <li> <b> Thubakgale Mabalane Samuel </b><br/>
+                                                    <span class="fa fa-envelope"></span>
+                                                    <a href="mailto:smthubakgale@gmail.com" style="color:white; padding-left:10px;">  email</a>
+                                                </li>
+                                            </ul> 
+                                           
+                                            <div onclick="loadSamp()" class="btns">
+                                                load Sample
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
-                                <div onclick="loadSamp()" style="width: 150px; padding: 5px; border-radius: 5px; background-color: #E48380; color:white; text-align:center; margin:auto; font-weight:700; cursor:pointer;">
-                                   load Sample
-                                </div>
+ 
                                 <script>
                                     function loadSamp()
                                     {
@@ -255,6 +632,9 @@
                                         </div>
                                         <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
                                             Copy <span class="fa fa-copy"></span>
+                                        </div>
+                                        <div class="dwn" onclick="syncsession(this)">
+                                            Sync <span class="fa fa-sync"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -299,6 +679,9 @@
                                         </div>
                                         <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
                                             Copy <span class="fa fa-copy"></span>
+                                        </div>
+                                        <div class="dwn" onclick="syncsession(this)">
+                                            Sync <span class="fa fa-sync"></span>
                                         </div>
 
                                         <div class="dwn" onclick="write1(this)" style="color: #E48380;">
@@ -382,6 +765,9 @@
                                         <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
                                             Copy <span class="fa fa-copy"></span>
                                         </div>
+                                        <div class="dwn" onclick="syncsession(this)">
+                                            Sync <span class="fa fa-sync"></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- C. Table Data-->
@@ -425,6 +811,9 @@
                                         </div>
                                         <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
                                             Copy <span class="fa fa-copy"></span>
+                                        </div>
+                                        <div class="dwn" onclick="syncsession(this)">
+                                            Sync <span class="fa fa-sync"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -470,6 +859,9 @@
                                         <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
                                             Copy <span class="fa fa-copy"></span>
                                         </div>
+                                        <div class="dwn" onclick="syncsession(this)">
+                                            Sync <span class="fa fa-sync"></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- C. Table Data-->
@@ -513,6 +905,9 @@
                                         </div>
                                         <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
                                             Copy <span class="fa fa-copy"></span>
+                                        </div>
+                                        <div class="dwn" onclick="syncsession(this)">
+                                            Sync <span class="fa fa-sync"></span>
                                         </div>
                                         <div  class="dwn" style="display:flex;" >
                                             <div>
@@ -570,6 +965,9 @@
                                         </div>
                                         <div class="dwn" onclick="copy0(this); popfade('Copied to Clipboard');">
                                             Copy <span class="fa fa-copy"></span>
+                                        </div>
+                                        <div class="dwn" onclick="syncsession(this)">
+                                            Sync <span class="fa fa-sync"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -674,7 +1072,7 @@
          
         <div class="clbrd" >
             <div style="display:flex;">
-                <div style="flex:1;"></div>
+                <div class="a" style="flex:1;"></div>
                 <div style="height:100vh; display:flex; flex-direction:column;">
                     <div style="flex:1;"></div>
                     <div style="padding:10px; padding-bottom:30px; padding-right:30px;">
@@ -683,6 +1081,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="b"></div>
             </div>
         </div>
     </main>
