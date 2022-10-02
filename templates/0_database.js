@@ -1,22 +1,6 @@
 
 // Initialize Firebase
-var firebaseConfig = {
-    apiKey: "AIzaSyAcLoJXiHFz0v6HeRoysnx5mrOvVsxXLWE",
-    authDomain: "teuber-21f22.firebaseapp.com",
-    databaseURL: "https://teuber-21f22-default-rtdb.firebaseio.com",
-    projectId: "teuber-21f22",
-    storageBucket: "teuber-21f22.appspot.com",
-    messagingSenderId: "45781902930",
-    appId: "1:45781902930:web:f3ca560bc4503a2c55a18b",
-    measurementId: "G-M0K9E7MR00"
-  };
 
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-
-var db = firebase.firestore();
-db.settings({timestampsInSnapshots: true}); 
- 
 //
 
 $(window).on("load", function ()
@@ -1253,62 +1237,7 @@ function ed_mode(tag) {
         }
     }
 } 
-function syncsession(tag)
-{ 
-    var nm = $(tag).attr("tbn"); 
-    var a = $("<div/>");
-    a.attr("name" , nm);
-    updateSession(a[0]);
-}
-function updateSession(tag)
-{
-    var nm = $(tag).attr("name");
-    var a = window.localStorage.getItem("_TEUBER_LOGIN_" );
-    if(a)
-    {
-        var b = JSON.parse(a); 
-        var c = 
-        {
-          "Email": b.Email ,
-          "Password" : b.Password ,
-          "Name" : "" ,
-          "Data" : ""
-        }; 
-        // Write 
-        db.collection('userdata').where("Email", "==", b.Email).where("Name" ,"==",  nm).get().then((snapshot) =>
-        { 
-            if(snapshot.size == 0)
-            { 
-                var d = c;
-                d.Name = nm;
-                d.Data = JSON.stringify(window[nm]);
-          
-                if(d.Data != "{}")
-                {
-                    db.collection('userdata').add(d); 
-                    popfade(nm + ' created');
-                }
-            } 
-            if(snapshot.size >= 1)
-            {
-                var d = c;
-                d.Name = nm;
-                d.Data = JSON.stringify(window[nm]); 
 
-                if(d.Data != "{}")
-                {
-                    snapshot.docs.forEach(doc => 
-                    { 
-                        var id = doc.id;   
-                        db.collection('userdata').doc(id).set(d, { merge: true }); 
-                        popfade(nm + ' updated');
-                    });
-                }
-            }
-        });
-        //
-    }
-}
 function showtbl(tag)
 {
     var nm = $(tag).attr("name");
@@ -1409,7 +1338,7 @@ function showtbl(tag)
     lvtb($("#" + nm)[0]);
 
     try{
-        updateSession(tag);
+        updateSession(tag , true);
     }catch{}
 }
 
@@ -2123,9 +2052,11 @@ function popfade(msg , ps = null) {
     $(".clbrd").fadeIn(800);
     $(".clbrd").fadeOut(2500);
 } 
+ 
 function openfile(tag) {
     $(tag).parent().find(".fl").trigger("click");
 }
+
 function readfile(tag) {
      
     var file = tag.files[0];
@@ -2133,7 +2064,6 @@ function readfile(tag) {
     reader.readAsText(file);
     reader.onloadend = function ()
     { 
-        const myDecipher = decipher('teuberhs')
         var g = myDecipher(reader.result); 
         $.globalEval(g)
         table1();
@@ -2148,7 +2078,6 @@ function savefile()
 { 
     var f = write2v();
 
-    const myCipher = cipher('teuberhs') 
     var g = myCipher(f);
 
     download("tbrdata.txt", g);
@@ -2184,6 +2113,10 @@ const decipher = salt => {
         .map(charCode => String.fromCharCode(charCode))
         .join('');
 }
+// Encryption 
+const myDecipher = decipher('teuberhs');
+const myCipher = cipher('teuberhs') ;
+
 // Test Web API
 function testapi()
 { 

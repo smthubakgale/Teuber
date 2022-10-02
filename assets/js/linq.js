@@ -69,3 +69,29 @@ function processJSON(dat) {
 
     return String(ret);
 } 
+
+function dbs(snap)
+{
+    if(JSON.stringify(snap.val()) == "null"){ return [];} 
+
+    var arr = [];
+    snap.forEach(obj => 
+    { 
+        arr.push( obj.val()); 
+    }) 
+    
+    return arr;
+}
+function dbk(snap)
+{
+    if(JSON.stringify(snap.val()) == "null"){ return [];} 
+
+    var arr = [];
+    snap.forEach(obj => 
+    { 
+        arr.push( obj.key); 
+    }) 
+    
+    return arr;
+}
+
