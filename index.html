@@ -14,10 +14,23 @@
     <!--Default-->
     <script id="jq" src="assets/js/jquery.min.js"></script>
     <script src="assets/js/linq.js"></script> 
-    <!-- Firebase --> 
-    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-analytics.js"></script>
+    <!-- Firebase -->  
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAcLoJXiHFz0v6HeRoysnx5mrOvVsxXLWE",
+            authDomain: "teuber-21f22.firebaseapp.com",
+            databaseURL: "https://teuber-21f22-default-rtdb.firebaseio.com",
+            projectId: "teuber-21f22",
+            storageBucket: "teuber-21f22.appspot.com",
+            messagingSenderId: "45781902930",
+            appId: "1:45781902930:web:f3ca560bc4503a2c55a18b",
+            measurementId: "G-M0K9E7MR00"
+        };
+
+        firebase.initializeApp(firebaseConfig); 
+        var db = firebase.database();  
+    </script>
     <!-- Template -->
     <script src="templates/data_table.js"></script>
     <script src="templates/chart_temps.js"></script>
@@ -304,7 +317,7 @@
                                               <div onclick="verifySession()" class="btns" style="background-color:#34444C; margin-top:10px;">
                                                 Login
                                             </div>
-                                            <div class="hrf" onclick="tbz('us2')">
+                                            <div class="hrf" onclick="tbz('us1')">
                                                 No Account ? <br/> Sign up 
                                             </div>
                                            </div>
@@ -352,7 +365,7 @@
                                                 });
                                             }
                                             function syncSession()
-                                            {
+                                            {  
                                                 var a = window.localStorage.getItem("_TEUBER_LOGIN_" );
                                                 if(a)
                                                 {
@@ -366,29 +379,101 @@
                                                     }; 
                                                     
                                                     setInterval(function()
-                                                    {
-                                                        $.each(deftb, (k, nm) =>
-                                                        { 
-                                                            db.collection('userdata').where("Email", "==", b.Email).where("Name" ,"==",  nm).get().then((snapshot) =>
-                                                            { 
-                                                                if(snapshot.size == 0)
-                                                                { 
-                                                                    var d = c;
-                                                                    d.Name = nm;
-                                                                    d.Data = JSON.stringify(window[nm]);
-                                                              
-                                                                    db.collection('userdata').add(d); 
-                                                                }  
-                                                            });
-                                                        })
+                                                    { 
+                                                        $.each(deftb, (k1, nm1) =>
+                                                        {   
+                                                            var nm = nm1; 
+                                                            var a = $("<div/>");
+                                                            a.attr("name" , nm);
+                                                            updateSession(a[0] , false);
+                                                        })  
+
                                                     } , 5000);
 
+                                                }
+                                            }
+                                            function syncsession(tag)
+                                            { 
+                                                var nm = $(tag).attr("tbn"); 
+                                                var a = $("<div/>");
+                                                a.attr("name" , nm);
+                                                updateSession(a[0] , true);
+                                            }
+                                            function updateSession(tag , tp)
+                                            {
+                                                var nm = $(tag).attr("name");
+                                                var a = window.localStorage.getItem("_TEUBER_LOGIN_" );
+                                                if(a)
+                                                {
+                                                    var b = JSON.parse(a); 
+                                                    var c = 
+                                                    {
+                                                    "Email": b.Email ,
+                                                    "Password" : b.Password ,
+                                                    "Name" : "" ,
+                                                    "Data" : ""
+                                                    }; 
+                                                    // Write 
+                                                    db.ref('userinfo/'+ myCipher(b.Email) ).once("value" , (snap) =>
+                                                    {
+                                                        var tc = dbs(snap); 
+                                                        var tk = dbk(snap); 
+
+                                                        var nm1 = nm;
+                                                        var td = tc.where({Name : nm1}); 
+                                                        // Data
+                                                        var d = c;
+                                                        d.Name = nm1;
+                                                        d.Data = JSON.stringify(window[nm1]);
+
+                                                        if(d.Data == "{}"){return null;}
+                                                        // Create
+                                                        if(td.length == 0)
+                                                        { 
+                                                            db.ref('userinfo/'+ myCipher(b.Email) ).push(d);
+
+                                                            if(tp)
+                                                            {
+                                                                popfade(nm1 + ' created');
+                                                            }
+                                                        }
+                                                        // Update 
+                                                        else 
+                                                        {
+                                                            var id = 0; 
+                                                            $.each(tc, (k2, nm) =>
+                                                            {  
+                                                                if(nm.Name == nm1){
+                                                                    id = tk[k2];
+                                                                }
+                                                            })
+
+                                                            var obj = {};
+                                                            obj[id] = d;
+                                                            
+                                                            db.ref('userinfo/'+ myCipher(b.Email) ).update(obj);
+
+                                                            if(tp)
+                                                            {
+                                                                popfade(nm1 + ' updated');
+                                                            }
+                                                        }    
+                                                    });
+
+                                                    
+                                                    //
                                                 }
                                             }
                                             function tbz(cl)
                                             {
                                                $(".usrs").css("display" , "none");
                                                $("." + cl).css("display" , "block");
+                                            }
+                                            function clearRegister()
+                                            { 
+                                                return;
+                                                window.localStorage.removeItem("_TEUBER_DEVICEID_" ); 
+                                                getsession(); 
                                             }
                                             function remSession()
                                             {  
@@ -423,44 +508,45 @@
                                             }
                                             function downloadSession(mail , pass , ld = false)
                                             {
-                                                var dt= {
+                                                    var dt= {
                                                      "Email": mail ,
                                                      "Password" : pass ,
                                                       "Name" : "" ,
                                                       "Data" : ""
                                                     } ;
-                                                    
-                                                    var cout = 0;
-                                                    db.collection('userdata').where("Name", "==", dt.Name).where("Email", "==", dt.Email).where("Password", "==", dt.Password).get().then((snapshot) =>
-                                                    {
-                                                       if(snapshot.size >= 1 )
-                                                       { 
+                                                     
+                                                    db.ref('userdata').once("value" , (snap) =>
+                                                    { 
+                                                        var tb = dbs(snap);   
+                                                        tb = tb.where( { Name : dt.Name ,Email : dt.Email , Password :  dt.Password });
+
+                                                        if(tb.length >= 1)
+                                                        {
                                                             if(ld)
                                                             {
                                                                 uploadAll(); 
                                                             }
-                                                            db.collection('userdata').where("Email", "==", dt.Email).where("Password", "==", dt.Password).get().then((snapshot) =>
-                                                            { 
-                                                                snapshot.docs.forEach(doc => 
-                                                                {
-                                                                    var d = doc.data();
+                                                             
+                                                            db.ref('userinfo/'+ myCipher( mail) ).once("value" , (snap) =>
+                                                            {
+                                                               var tc = dbs(snap);  
+                                                               $.each(tc , (k , d)=>
+                                                               {
                                                                     if(d.Data != "{}" && d.Name != "")
-                                                                    {
-                                                                        cout++;
-                                                                        var sz = snapshot.size - 1;
+                                                                    { 
 
                                                                         var f = "var " + d.Name + " = " + d.Data + ";" ; 
                                                                         $.globalEval(f);
  
-                                                                        if(cout >= sz)
+                                                                        if(k == tc.length - 1)
                                                                         {
                                                                            popfade('Data Loaded','center')
                                                                            table1();
                                                                         } 
                                                                     }
-                                                                });
+                                                               })
                                                             });
-
+                                                           
                                                            var ds = JSON.stringify(dt); 
                                                            popfade('Logged In' , 'center');
  
@@ -469,13 +555,14 @@
 
                                                            getsession();
                                                            syncSession();
-                                                       }
-                                                       else
-                                                       {
+                                                        }
+                                                        else
+                                                        {
                                                            popfade('No such User' , 'center');
-                                                       }
-                                                    });
-                                               
+                                                        }
+
+                                                    });  
+
                                             }
                                             function setSession()
                                             {
@@ -493,10 +580,14 @@
                                                     popfade('Enter Pasword' , 'center');
                                                 }
                                                 else{
-                                                    db.collection('userdata').where("Email", "==", data.Email).get().then((snapshot) =>
+                                                      
+                                                    db.ref('userdata').once("value" , (snap) =>
                                                     {
-                                                       if(snapshot.size == 0 )
-                                                       {
+                                                        var tb = dbs(snap);   
+                                                        tb = tb.where( { Email : data.Email });
+                                                        
+                                                        if(tb.length == 0)
+                                                        { 
                                                            var mail = data.Email;
                                                            const myCipher = cipher('teuber');  
                                                            var pass = myCipher( data.Password );
@@ -507,22 +598,21 @@
                                                                 "Name" : "" ,
                                                                 "Data" : ""
                                                             } 
-                                                           var ds = JSON.stringify(dt);
-                                                            
-                                                           db.collection('userdata').add(dt);
-                                                           popfade('User Registered' , 'center');
+                                                            var ds = JSON.stringify(dt);
+                                                            db.ref('userdata').push(dt);
+                                                            popfade('User Registered' , 'center');
 
-                                                           window.localStorage.setItem("_TEUBER_DEVICEID_" , ds);
-                                                           window.localStorage.setItem("_TEUBER_LOGIN_" , ds); 
+                                                            window.localStorage.setItem("_TEUBER_DEVICEID_" , ds);
+                                                            window.localStorage.setItem("_TEUBER_LOGIN_" , ds); 
 
-                                                           getsession();
-                                                           syncSession();
-                                                       }
-                                                       else
-                                                       {
+                                                            getsession();
+                                                            syncSession();
+                                                        }
+                                                        else
+                                                        {
                                                            popfade('User Already Exists' , 'center');
-                                                       }
-                                                    });
+                                                        }
+                                                    });   
                                                 }
                                             }
                                             function getsession(st = false)
@@ -559,7 +649,7 @@
                                             .aside b{color:#E48380;}
                                         </style>
                                         <div class="aside" >
-                                            <h2>What is Teuber ?</h2>
+                                            <h2>What is Teuber <span style="cursor:pointer;" onclick="clearRegister()"> ? </span> </h2>
                                             <p> Teuber is an App Design Platform </p>
                                             <h2> Aims </h2> 
                                             <ul>
