@@ -16,6 +16,7 @@
     <script src="assets/js/linq.js"></script> 
     <!-- Firebase -->  
     <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
     <script>
         var firebaseConfig = {
             apiKey: "AIzaSyAcLoJXiHFz0v6HeRoysnx5mrOvVsxXLWE",
@@ -29,7 +30,7 @@
         };
 
         firebase.initializeApp(firebaseConfig); 
-        var db = firebase.database();  
+        var db = firebase.database();   
     </script>
     <!-- Template -->
     <script src="templates/data_table.js"></script>
@@ -314,9 +315,29 @@
                                                 <span>Link Current Data : </span>
                                                 <input id="checkB" type="checkbox" />
                                               </div>
-                                              <div onclick="verifySession()" class="btns" style="background-color:#34444C; margin-top:10px;">
-                                                Login
-                                            </div>
+                                              <div onclick="ts1()" class="btns" style="background-color:#34444C; margin-top:10px;">
+                                                 Google Login
+                                               </div>
+                                          <script> 
+                                            function ts1()
+                                            { 
+                                                var provider = new firebase.auth.GoogleAuthProvider();
+                                                firebase.auth().signInWithPopup(provider).then(function(result) 
+                                                {
+                                                    var token = result.credential.accessToken;
+                                                    var user = result.user;
+                                                    alert(JSON.stringify(user));
+
+                                                }).catch(function(error) 
+                                                {
+                                                    var errorCode = error.code;
+                                                    var errorMessage = error.message;
+                                                    var email = error.email;
+                                                    var credential = error.credential;
+                                                    alert(JSON.stringify(error));
+                                                });
+                                            }
+                                          </script>
                                             <div class="hrf" onclick="tbz('us1')">
                                                 No Account ? <br/> Sign up 
                                             </div>
@@ -702,7 +723,11 @@
                                     {
                                         $.get("data/filedata.js", function (data)
                                         { 
+                                            var cur = databasetable;
                                             $.globalEval(data);
+                                            // Insert
+
+                                            // 
                                             table1();
                                         })
                                     }
