@@ -1,26 +1,40 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="850978232223-hisf29upqim8kp738vtbad9g374djjoa.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" onload="initClient()" async defer></script>
   </head>
   <body>
-    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     <script>
-      function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        alert("ID: " + profile.getId()); // Don't send this directly to your server!
-        alert('Full Name: ' + profile.getName());
-        alert('Given Name: ' + profile.getGivenName());
-        alert('Family Name: ' + profile.getFamilyName());
-        alert("Image URL: " + profile.getImageUrl());
-        alert("Email: " + profile.getEmail());
-
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        alert("ID Token: " + id_token);
+      var client;
+      function initClient() 
+      {
+        client = google.accounts.oauth2.initCodeClient({
+          client_id: '928912498068-dq5aluk0vqpd8qfpnd5f4jmr73ijc75p.apps.googleusercontent.com',
+          scope: 'https://www.googleapis.com/auth/calendar.readonly',
+          ux_mode: 'popup',
+          callback: (response) => 
+          { 
+             // Send Code to PHP Server
+             var code_receiver_uri = 'YOUR_AUTHORIZATION_CODE_ENDPOINT_URI', 
+             const xhr = new XMLHttpRequest();
+             xhr.open('POST', code_receiver_uri, true);
+             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+             xhr.onload = function() 
+             {
+                // PHP Server returns User Details 
+                   console.log('Signed in as: ' + xhr.responseText);
+             };
+             xhr.send('code=' + code); 
+            
+          },
+        });
+      }
+      function getAuthCode() {
+        // Request authorization code and obtain user consent
+          client.requestCode();
       }
     </script>
+    <button onclick="getAuthCode();">Load Your Calendar</button>
   </body>
 </html>
